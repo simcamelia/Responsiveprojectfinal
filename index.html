@@ -44,27 +44,23 @@
   </nav>
 </header>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO (no YouTube here) ===== -->
 <section class="brand-gradient text-white">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16 grid lg:grid-cols-2 gap-8 items-center">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16 grid gap-8 items-center">
     <div>
       <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">
         Make it <span class="text-amber-200">personal</span>. Make it <span class="underline decoration-amber-300">memorable</span>.
       </h1>
       <p class="mt-4 text-white/90 max-w-2xl">All products, prices and images are pulled from your curated content.</p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="#collections" class="inline-flex items-center gap-2 bg-white text-gray-800 px-4 py-2 rounded-xl shadow-soft"><i class="fa-solid fa-gift"></i> Browse Collections</a>
-        <a href="https://www.facebook.com/profile.php?id=100077254045255" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-xl hover:bg-white/10">
+        <a href="#collections" class="inline-flex items-center gap-2 bg-white text-gray-800 px-4 py-2 rounded-xl shadow-soft">
+          <i class="fa-solid fa-gift"></i> Browse Collections
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100077254045255" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-xl hover:bg-white/10">
           <i class="fa-regular fa-message"></i> Message us
         </a>
       </div>
-    </div>
-    <div class="rounded-2xl overflow-hidden shadow-soft bg-white/5 p-2">
-      <div class="aspect-video rounded-2xl overflow-hidden">
-        <!-- Updated YouTube link -->
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9TF9BZJgF5g?list=RD9TF9BZJgF5g&start_radio=1&rel=0&modestbranding=1" title="Playlist ambience" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <p class="text-white/80 text-sm px-2 py-3">Soft background music to shop by.</p>
     </div>
   </div>
 </section>
@@ -803,7 +799,7 @@
   tbl.querySelectorAll('thead th[data-sort]').forEach((th, idx) => {
     let dir = 1;
     th.addEventListener('click', () => {
-      const type = th.dataset.sort; // "text" | "num"
+      const type = th.dataset.sort;
       const rows = Array.from(tblBody.querySelectorAll('tr'));
       rows.sort((a,b) => {
         const A = a.children[idx].textContent.trim();
