@@ -30,8 +30,11 @@
       <span class="text-xl font-semibold tracking-tight">Iris93 • Personalised Gifts</span>
     </a>
     <div class="flex items-center gap-2">
-      <a href="#social" class="hidden sm:inline-flex items-center px-3 py-2 rounded-lg border hover:bg-gray-50">
+      <a href="https://www.facebook.com/profile.php?id=100077254045255" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center px-3 py-2 rounded-lg border hover:bg-gray-50">
         <i class="fa-brands fa-facebook mr-2"></i> Follow
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100077254045255" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white" style="background: var(--brand);">
+        <i class="fa-regular fa-message"></i><span>Message us</span>
       </a>
       <button id="cartBtn" class="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white" style="background: var(--brand);">
         <i class="fa-solid fa-cart-shopping"></i><span>Cart</span>
@@ -51,14 +54,36 @@
       <p class="mt-4 text-white/90 max-w-2xl">All products, prices and images are pulled from your curated content.</p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a href="#collections" class="inline-flex items-center gap-2 bg-white text-gray-800 px-4 py-2 rounded-xl shadow-soft"><i class="fa-solid fa-gift"></i> Browse Collections</a>
-        <a href="#table" class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-xl hover:bg-white/10"><i class="fa-solid fa-table"></i> HTML Table</a>
+        <a href="https://www.facebook.com/profile.php?id=100077254045255" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-xl hover:bg-white/10">
+          <i class="fa-regular fa-message"></i> Message us
+        </a>
       </div>
     </div>
     <div class="rounded-2xl overflow-hidden shadow-soft bg-white/5 p-2">
       <div class="aspect-video rounded-2xl overflow-hidden">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/jfKfPfyJRdk?rel=0&modestbranding=1" title="Lo-fi beats" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- Updated YouTube link -->
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9TF9BZJgF5g?list=RD9TF9BZJgF5g&start_radio=1&rel=0&modestbranding=1" title="Playlist ambience" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
       <p class="text-white/80 text-sm px-2 py-3">Soft background music to shop by.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL EMBEDS ON MAIN PAGE ===== -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
+  <div class="grid lg:grid-cols-2 gap-6 items-start">
+    <div class="bg-white rounded-2xl p-4 shadow-soft border">
+      <h3 class="text-xl font-semibold mb-2">Facebook</h3>
+      <iframe title="Facebook Page"
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+              width="100%" height="650" style="border:none;overflow:hidden"
+              scrolling="no" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
+    <div class="bg-white rounded-2xl p-4 shadow-soft border">
+      <h3 class="text-xl font-semibold mb-2">YouTube</h3>
+      <div class="aspect-video rounded-2xl overflow-hidden">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9TF9BZJgF5g?list=RD9TF9BZJgF5g&start_radio=1&rel=0&modestbranding=1" title="Playlist ambience" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -68,9 +93,7 @@
   <div class="flex flex-wrap gap-2" role="tablist" aria-label="Shop tabs">
     <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="true" data-tab="collections" id="collections">Collections</button>
     <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="false" data-tab="filters">Filters</button>
-    <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="false" data-tab="social" id="social">Embeds</button>
     <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="false" data-tab="table" id="table">HTML Table</button>
-    <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="false" data-tab="code">View Code</button>
   </div>
 
   <div class="mt-6 space-y-8">
@@ -362,13 +385,28 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- ===== FILTERS ===== -->
+    <!-- ===== FILTERS (with chip bar & reset) ===== -->
     <div class="tab-panel hidden" data-panel="filters">
       <div class="bg-white rounded-2xl p-6 shadow-soft border">
         <h3 class="text-xl font-semibold">Filter products</h3>
+
+        <!-- Chip bar -->
+        <div class="mt-3 flex flex-wrap gap-2" id="chipBar" aria-label="Quick category filter">
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="">All</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="flowers">Flowers</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="wall-art">Wall Art</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="mugs">Mugs</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="sweets">Sweet Treats</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="tshirts">T-Shirts</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="accessories">Accessories</button>
+          <button class="chip px-3 py-1.5 rounded-full border" data-cat="other">Other</button>
+        </div>
+
+        <!-- Form controls -->
         <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <label class="block">
             <span class="text-sm">Category</span>
@@ -390,27 +428,14 @@
           <div class="flex items-end gap-3">
             <button id="applyFilters" class="px-4 py-2 rounded-xl text-white" style="background: var(--brand);">Apply</button>
             <button id="clearFilters" class="px-4 py-2 rounded-xl border">Clear</button>
+            <button id="resetToCollections" class="px-4 py-2 rounded-xl border">Reset to Collections</button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- ===== EMBEDS ===== -->
-    <div class="tab-panel hidden" data-panel="social">
-      <div class="grid lg:grid-cols-2 gap-6 items-start">
-        <div class="bg-white rounded-2xl p-4 shadow-soft border">
-          <h3 class="text-xl font-semibold mb-2">Facebook</h3>
-          <iframe title="Facebook Page"
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                  width="100%" height="650" style="border:none;overflow:hidden"
-                  scrolling="no" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </div>
-        <div class="bg-white rounded-2xl p-4 shadow-soft border">
-          <h3 class="text-xl font-semibold mb-2">YouTube</h3>
-          <div class="aspect-video rounded-2xl overflow-hidden">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/jfKfPfyJRdk?rel=0&modestbranding=1" title="Lo-fi beats" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-        </div>
+        <!-- Results counter -->
+        <p class="text-sm text-gray-600 mt-3">
+          <span id="filterCount">Showing all items</span>. Filters affect the cards in <strong>Collections</strong>.
+        </p>
       </div>
     </div>
 
@@ -455,22 +480,6 @@
             </tfoot>
           </table>
         </div>
-      </div>
-    </div>
-
-    <!-- ===== VIEW CODE (requirements list) ===== -->
-    <div class="tab-panel hidden" data-panel="code">
-      <div class="bg-white rounded-2xl p-6 border shadow-soft">
-        <h3 class="text-xl font-semibold">Included requirements</h3>
-        <ul class="mt-3 list-disc pl-6 text-sm text-gray-700 space-y-1">
-          <li>Hero, Footer</li>
-          <li>Cards &amp; Grids (product grid)</li>
-          <li>Embeds (Facebook + YouTube)</li>
-          <li>CSS Filters (hover effect)</li>
-          <li>HTML Table (enhanced: search, sort, export, badges, extra columns)</li>
-          <li>Responsive (Tailwind grid & utilities)</li>
-          <li>Functional Category &amp; Price Filters</li>
-        </ul>
       </div>
     </div>
 
@@ -522,7 +531,11 @@
 <footer class="mt-14 border-t">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
     <p>© <span id="year"></span> Iris93 • Personalised Gifts</p>
-    <p>This project was coded by Camelia Simion — <a class="underline" href="#" target="_blank" rel="noopener">GitHub repo</a></p>
+    <p>
+      <a class="underline" href="https://github.com/simcamelia/Responsiveprojectfinal/tree/main" target="_blank" rel="noopener">GitHub repo</a>
+      &nbsp;|&nbsp;
+      <a class="underline" href="https://responsivecs.netlify.app" target="_blank" rel="noopener">Hosted on Netlify</a>
+    </p>
   </div>
 </footer>
 
@@ -652,7 +665,7 @@
     window.open('https://wa.me/447000000000?text=' + msg, '_blank', 'noopener');
   });
 
-  // Category/price filters
+  // ===== FILTERS (form) affect Collections cards =====
   const categoryFilter = document.getElementById('categoryFilter');
   const priceFilter = document.getElementById('priceFilter');
   const applyFilters = document.getElementById('applyFilters');
@@ -666,12 +679,64 @@
       const byPrice = !maxPrice || ((data.price || 0) <= maxPrice);
       card.classList.toggle('hidden', !(byCat && byPrice));
     });
+    // switch to Collections to show results
+    const collectionsBtn = document.querySelector('[data-tab="collections"]');
+    if (collectionsBtn) collectionsBtn.click();
+    updateFilterCount();
   }
   if (applyFilters) applyFilters.addEventListener('click', runFilters);
   if (clearFilters) clearFilters.addEventListener('click', () => { categoryFilter.value = ''; priceFilter.value = ''; runFilters(); });
 
+  // ===== Chip bar + live counter + reset-to-collections =====
+  const chipBar = document.getElementById('chipBar');
+  const filterCount = document.getElementById('filterCount');
+  const resetToCollections = document.getElementById('resetToCollections');
+
+  function highlightChip(activeCat){
+    document.querySelectorAll('#chipBar .chip').forEach(ch => {
+      const on = ch.dataset.cat === (activeCat || '');
+      ch.classList.toggle('bg-purple-50', on);
+      ch.classList.toggle('border-purple-300', on);
+      ch.classList.toggle('text-purple-700', on);
+    });
+  }
+  function updateFilterCount(){
+    const cards = Array.from(document.querySelectorAll('[data-product]'));
+    const visible = cards.filter(c => !c.classList.contains('hidden')).length;
+    const total = cards.length;
+    if (filterCount) filterCount.textContent = visible === total ? 'Showing all items' : `Showing ${visible} of ${total} items`;
+  }
+  function runFiltersPublic(){
+    if (typeof runFilters === 'function') runFilters();
+    else updateFilterCount();
+  }
+  if (chipBar){
+    chipBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      const cat = btn.dataset.cat || '';
+      if (categoryFilter) categoryFilter.value = cat;
+      highlightChip(cat);
+      runFiltersPublic();
+      const collectionsBtn = document.querySelector('[data-tab="collections"]');
+      if (collectionsBtn) collectionsBtn.click();
+    });
+  }
+  if (resetToCollections){
+    resetToCollections.addEventListener('click', () => {
+      if (categoryFilter) categoryFilter.value = '';
+      if (priceFilter) priceFilter.value = '';
+      highlightChip('');
+      document.querySelectorAll('[data-product]').forEach(card => card.classList.remove('hidden'));
+      updateFilterCount();
+      const collectionsBtn = document.querySelector('[data-tab="collections"]');
+      if (collectionsBtn) collectionsBtn.click();
+    });
+  }
+  highlightChip('');
+  updateFilterCount();
+
   // ===== TABLE ENHANCEMENTS =====
-  // Per-product metadata to enrich the table with optional columns.
   const productMeta = {
     "funeral-flowers": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Sympathy", recipient:"Family/Friends", variants:["#a855f7","#ef4444","#f59e0b"], rrp:75, notes:"Soap or natural flowers." },
     "easter-basket": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Easter/Xmas", recipient:"Kids/Adults", variants:["#10b981","#f59e0b","#3b82f6"], rrp:18, notes:"Theme customisable." },
@@ -691,10 +756,10 @@
   };
 
   // Build Table Body from cards + productMeta
-  const tbody = document.getElementById('tblBody');
+  const tblBody = document.getElementById('tblBody');
   function renderTable(){
     const cards = Array.from(document.querySelectorAll('[data-product]'));
-    tbody.innerHTML = '';
+    tblBody.innerHTML = '';
     cards.forEach(card => {
       const data = JSON.parse(card.dataset.product);
       const meta = productMeta[data.id] || {};
@@ -702,13 +767,10 @@
       const rrp = Number(meta.rrp || 0);
       const discount = (rrp && price && rrp > price) ? Math.round((100*(rrp-price))/rrp) + '%' : '—';
 
-      // Variants swatches HTML
       let variantsHTML = '—';
       if (meta.variants && meta.variants.length){
         variantsHTML = meta.variants.map(c => '<span class="swatch" title="'+c+'" style="background:'+c+'"></span>').join('');
       }
-
-      // Category badge
       const catBadge = '<span class="text-xs px-2 py-0.5 rounded-full border">'+ (data.category || 'other') +'</span>';
 
       const tr = document.createElement('tr');
@@ -727,7 +789,7 @@
         + `<td class="border px-3 py-2">${variantsHTML}</td>`
         + `<td class="border px-3 py-2">${meta.notes || (data.desc || '—')}</td>`
         + `<td class="border px-3 py-2"><button class="view-row underline text-indigo-700">View</button></td>`;
-      tbody.appendChild(tr);
+      tblBody.appendChild(tr);
     });
     updateSummary();
   }
@@ -738,12 +800,11 @@
   const summary = document.getElementById('tblSummary');
   const exportBtn = document.getElementById('tblExport');
 
-  // Sort on header click
   tbl.querySelectorAll('thead th[data-sort]').forEach((th, idx) => {
     let dir = 1;
     th.addEventListener('click', () => {
       const type = th.dataset.sort; // "text" | "num"
-      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const rows = Array.from(tblBody.querySelectorAll('tr'));
       rows.sort((a,b) => {
         const A = a.children[idx].textContent.trim();
         const B = b.children[idx].textContent.trim();
@@ -755,25 +816,23 @@
         return A.localeCompare(B) * dir;
       });
       dir *= -1;
-      rows.forEach(r => tbody.appendChild(r));
+      rows.forEach(r => tblBody.appendChild(r));
       updateSummary();
     });
   });
 
-  // Filter rows by search
   function filterRows() {
     const q = (search.value || '').toLowerCase();
-    tbody.querySelectorAll('tr').forEach(tr => {
+    tblBody.querySelectorAll('tr').forEach(tr => {
       const text = tr.textContent.toLowerCase();
       tr.classList.toggle('hidden', !text.includes(q));
     });
     updateSummary();
   }
-  search.addEventListener('input', filterRows);
+  if (search) search.addEventListener('input', filterRows);
 
-  // Summary (count + average price of visible)
   function updateSummary() {
-    const visible = Array.from(tbody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
+    const visible = Array.from(tblBody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
     const prices = visible.map(tr => {
       const priceCell = tr.querySelector('[data-price]');
       return priceCell ? parseFloat(priceCell.dataset.price || '0') : 0;
@@ -783,9 +842,8 @@
     summary.textContent = `${count} item${count!==1?'s':''} • Avg £${avg.toFixed(2)}`;
   }
 
-  // CSV export (visible rows only)
   function exportCSV() {
-    const visible = Array.from(tbody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
+    const visible = Array.from(tblBody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
     const head = Array.from(tbl.querySelectorAll('thead th')).map(th => th.textContent.trim());
     const rows = visible.map(tr => Array.from(tr.children).map(td => `"${td.textContent.replace(/"/g,'""').trim()}"`));
     const csv = [head, ...rows].map(r => r.join(',')).join('\n');
@@ -796,10 +854,9 @@
     a.click();
     URL.revokeObjectURL(a.href);
   }
-  exportBtn.addEventListener('click', exportCSV);
+  if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
-  // “View” action -> open modal using card data
-  tbody.addEventListener('click', (e) => {
+  tblBody.addEventListener('click', (e) => {
     const btn = e.target.closest('.view-row');
     if (!btn) return;
     const tr = btn.closest('tr');
