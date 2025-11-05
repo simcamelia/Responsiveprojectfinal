@@ -18,8 +18,13 @@
     .swatch{ display:inline-block; width:14px; height:14px; border-radius:9999px; border:1px solid #e5e7eb; margin-right:6px; vertical-align:middle;}
     .th-sortable{ cursor:pointer; }
     .th-sortable:after{ content:" ↕"; opacity:.4; }
-    /* Make Facebook Page Plugin responsive */
+    /* Facebook Page Plugin responsive */
     .fb-page, .fb-page iframe{ width:100% !important; }
+    /* Modal gallery */
+    .thumb{ width:60px; height:60px; border-radius:.5rem; object-fit:cover; border:1px solid #e5e7eb; cursor:pointer; }
+    .thumb.active{ outline:3px solid #a78bfa; }
+    .carousel-btn{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.45); color:#fff; border:none; width:40px; height:40px; border-radius:9999px; display:flex; align-items:center; justify-content:center; }
+    .carousel-btn.left{ left:10px; } .carousel-btn.right{ right:10px; }
   </style>
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">
@@ -46,7 +51,7 @@
   </nav>
 </header>
 
-<!-- ===== HERO (no YouTube here) ===== -->
+<!-- ===== HERO ===== -->
 <section class="brand-gradient text-white">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16 grid gap-8 items-center">
     <div>
@@ -67,7 +72,7 @@
   </div>
 </section>
 
-<!-- ===== SOCIAL EMBEDS ON MAIN PAGE ===== -->
+<!-- ===== SOCIAL EMBEDS ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
   <div class="grid lg:grid-cols-2 gap-6 items-start">
     <!-- Facebook (SDK Page Plugin) -->
@@ -109,10 +114,11 @@
 
   <div class="mt-6 space-y-8">
 
-    <!-- ===== COLLECTIONS ===== -->
+    <!-- ===== COLLECTIONS (cards) ===== -->
     <div class="tab-panel" data-panel="collections">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
-        <!-- CARD: Funeral flowers -->
+      <div id="cardsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
+
+        <!-- Each card keeps a single main image; the modal will show all discovered images -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"funeral-flowers","title":"Funeral flowers","price":65,"img":"funeral-flowers-1.jpg","desc":"Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.","category":"flowers"}'>
           <img class="h-48 w-full object-cover" src="funeral-flowers-1.jpg" alt="Funeral flowers">
           <div class="p-4">
@@ -131,7 +137,6 @@
           </div>
         </div>
 
-        <!-- CARD: Easter basket -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"easter-basket","title":"Easter basket","price":15,"img":"easter-basket-1.jpg","desc":"Can create on request Christmas baskets, or other type of baskets(as required).","category":"other"}'>
           <img class="h-48 w-full object-cover" src="easter-basket-1.jpg" alt="Easter basket">
           <div class="p-4">
@@ -150,7 +155,6 @@
           </div>
         </div>
 
-        <!-- CARD: Mother’s Day Wall art -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="wall-art" data-product='{"id":"mother-s-day-wall-art","title":"Mother’s Day Wall art","price":10,"img":"mother-s-day-wall-art-1.jpg","desc":"Can be personalised and tweaked for any special occasion, and any special recipient.","category":"wall-art"}'>
           <img class="h-48 w-full object-cover" src="mother-s-day-wall-art-1.jpg" alt="Mother’s Day Wall art">
           <div class="p-4">
@@ -169,7 +173,6 @@
           </div>
         </div>
 
-        <!-- CARD: International Women’s Day -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"international-women-s-day","title":"International Women’s Day","price":10,"img":"international-women-s-day-1.jpg","desc":"Can be personalised and tweaked for any special recipient.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="international-women-s-day-1.jpg" alt="International Women’s Day">
           <div class="p-4">
@@ -188,7 +191,6 @@
           </div>
         </div>
 
-        <!-- CARD: Mother’s Day keyrings -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"mother-s-day-keyrings","title":"Mother’s Day keyrings","price":1.5,"img":"mother-s-day-keyrings-1.jpg","desc":"Can be done for other occasions, like Father’s Day, Remembrance Day, Easter, Xmas, etc.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="mother-s-day-keyrings-1.jpg" alt="Mother’s Day keyrings">
           <div class="p-4">
@@ -207,7 +209,6 @@
           </div>
         </div>
 
-        <!-- CARD: Personalised metal water bottles -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"personalised-metal-water-bottles","title":"Personalised metal water bottles","price":13,"img":"personalised-metal-water-bottles-1.jpg","desc":"Personalised to order.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="personalised-metal-water-bottles-1.jpg" alt="Personalised metal water bottles">
           <div class="p-4">
@@ -226,7 +227,6 @@
           </div>
         </div>
 
-        <!-- CARD: Martis/Martisor -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"martis-martisor","title":"Martis/Martisor","price":2,"img":"martis-martisor-1.jpg","desc":"Personalised to order.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="martis-martisor-1.jpg" alt="Martis/Martisor">
           <div class="p-4">
@@ -245,7 +245,6 @@
           </div>
         </div>
 
-        <!-- CARD: Martisor and -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"martisor-and","title":"Martisor  and","price":1,"img":"martisor-and-1.jpg","desc":"Personalised to order.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="martisor-and-1.jpg" alt="Martisor and">
           <div class="p-4">
@@ -264,7 +263,6 @@
           </div>
         </div>
 
-        <!-- CARD: Sweet treats boxes -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="sweets" data-product='{"id":"sweet-treats-boxes","title":"Sweet treats boxes","price":3,"img":"sweet-treats-boxes-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"sweets"}'>
           <img class="h-48 w-full object-cover" src="sweet-treats-boxes-1.jpg" alt="Sweet treats boxes">
           <div class="p-4">
@@ -283,7 +281,6 @@
           </div>
         </div>
 
-        <!-- CARD: Soap roses boxes -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"soap-roses-boxes","title":"Soap roses boxes","price":11,"img":"soap-roses-boxes-1.jpg","desc":"Personalised to order.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="soap-roses-boxes-1.jpg" alt="Soap roses boxes">
           <div class="p-4">
@@ -302,7 +299,6 @@
           </div>
         </div>
 
-        <!-- CARD: Soap flowers bouquet -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"soap-flowers-bouquet","title":"Soap flowers bouquet","price":15,"img":"soap-flowers-bouquet-1.jpg","desc":"Personalised to order.","category":"flowers"}'>
           <img class="h-48 w-full object-cover" src="soap-flowers-bouquet-1.jpg" alt="Soap flowers bouquet">
           <div class="p-4">
@@ -321,7 +317,6 @@
           </div>
         </div>
 
-        <!-- CARD: Coffee mugs personalised -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="mugs" data-product='{"id":"coffee-mugs-personalised","title":"Coffee mugs personalised","price":8,"img":"coffee-mugs-personalised-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"mugs"}'>
           <img class="h-48 w-full object-cover" src="coffee-mugs-personalised-1.jpg" alt="Coffee mugs personalised">
           <div class="p-4">
@@ -340,7 +335,6 @@
           </div>
         </div>
 
-        <!-- CARD: Plastic cups for birthday parties -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"plastic-cups-for-birthday-parties-each","title":"Plastic cups for birthday parties  each","price":4,"img":"plastic-cups-for-birthday-parties-each-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="plastic-cups-for-birthday-parties-each-1.jpg" alt="Plastic cups for birthday parties each">
           <div class="p-4">
@@ -359,7 +353,6 @@
           </div>
         </div>
 
-        <!-- CARD: Straw glass cups with lid -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"straw-glass-cups-with-lid","title":"Straw glass cups with lid","price":5,"img":"straw-glass-cups-with-lid-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="straw-glass-cups-with-lid-1.jpg" alt="Straw glass cups with lid">
           <div class="p-4">
@@ -378,7 +371,6 @@
           </div>
         </div>
 
-        <!-- CARD: Personalised T -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"personalised-t","title":"Personalised T","price":11,"img":"personalised-t-1.jpg","desc":"Personalised to order.","category":"other"}'>
           <img class="h-48 w-full object-cover" src="personalised-t-1.jpg" alt="Personalised T">
           <div class="p-4">
@@ -497,24 +489,30 @@
   </div>
 </section>
 
-<!-- ===== PRODUCT MODAL ===== -->
+<!-- ===== PRODUCT MODAL (with gallery) ===== -->
 <div id="productModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
-  <div class="bg-white max-w-2xl w-full rounded-2xl overflow-hidden shadow-soft">
+  <div class="bg-white max-w-3xl w-full rounded-2xl overflow-hidden shadow-soft">
     <div class="flex items-center justify-between px-5 py-4 border-b">
       <h3 id="modalTitle" class="text-xl font-semibold"></h3>
       <button id="modalClose" class="text-gray-500 hover:text-gray-700"><i class="fa-solid fa-xmark text-xl"></i></button>
     </div>
-    <div class="grid md:grid-cols-2 gap-0">
-      <img id="modalImg" class="w-full h-72 object-cover md:h-full" alt="">
-      <div class="p-5">
-        <p id="modalDesc" class="text-gray-700"></p>
-        <div class="mt-4 text-2xl font-bold" id="modalPrice"></div>
-        <div class="mt-5 flex flex-wrap gap-3">
-          <button id="modalAdd" class="px-4 py-2 rounded-xl text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus mr-2"></i>Add to Cart</button>
-          <a id="modalBuy" href="#" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl border inline-flex items-center gap-2">
-            <i class="fa-solid fa-bolt"></i> Buy Now
-          </a>
-        </div>
+
+    <!-- Carousel area -->
+    <div class="relative">
+      <img id="modalImg" class="w-full h-80 object-cover" alt="">
+      <button class="carousel-btn left" id="prevImg" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="carousel-btn right" id="nextImg" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="p-5">
+      <div id="thumbs" class="flex flex-wrap gap-2 mb-4"></div>
+      <p id="modalDesc" class="text-gray-700"></p>
+      <div class="mt-4 text-2xl font-bold" id="modalPrice"></div>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <button id="modalAdd" class="px-4 py-2 rounded-xl text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus mr-2"></i>Add to Cart</button>
+        <a id="modalBuy" href="#" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl border inline-flex items-center gap-2">
+          <i class="fa-solid fa-bolt"></i> Buy Now
+        </a>
       </div>
     </div>
   </div>
@@ -552,7 +550,6 @@
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-  // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Tabs
@@ -572,7 +569,15 @@
     if(targetBtn) targetBtn.click();
   }
 
-  // Modal & Cart
+  // ===== Build a product index from cards (used by table + modal) =====
+  function getAllProducts(){
+    const cards = Array.from(document.querySelectorAll('[data-product]'));
+    return cards.map(c => JSON.parse(c.dataset.product));
+  }
+  const productsIndex = {};
+  getAllProducts().forEach(p => { productsIndex[p.id] = p; });
+
+  // ===== Modal + Gallery =====
   const modal = document.getElementById('productModal');
   const modalClose = document.getElementById('modalClose');
   const modalTitle = document.getElementById('modalTitle');
@@ -581,21 +586,81 @@
   const modalPrice = document.getElementById('modalPrice');
   const modalAdd = document.getElementById('modalAdd');
   const modalBuy = document.getElementById('modalBuy');
+  const thumbs = document.getElementById('thumbs');
+  const prevImg = document.getElementById('prevImg');
+  const nextImg = document.getElementById('nextImg');
+
   let currentProduct = null;
+  let gallery = [];
+  let galleryIndex = 0;
+
+  function showImageAt(i){
+    if (!gallery.length) return;
+    galleryIndex = (i + gallery.length) % gallery.length;
+    modalImg.src = gallery[galleryIndex];
+    Array.from(thumbs.children).forEach((t,idx) => t.classList.toggle('active', idx===galleryIndex));
+  }
+
+  function buildThumbs(){
+    thumbs.innerHTML = '';
+    gallery.forEach((src, idx) => {
+      const im = document.createElement('img');
+      im.src = src; im.alt = currentProduct.title + ' ' + (idx+1);
+      im.className = 'thumb' + (idx===galleryIndex ? ' active' : '');
+      im.addEventListener('click', () => showImageAt(idx));
+      thumbs.appendChild(im);
+    });
+  }
+
+  // Try to auto-discover extra images: fn-1.jpg, fn-2.jpg, ... up to -8.jpg
+  function discoverGallery(firstSrc){
+    const out = [firstSrc];
+    const m = firstSrc.match(/^(.*?)(-\d+)?(\.[a-zA-Z0-9]+)$/);
+    if (!m) return out;
+    const base = m[1];
+    const ext  = m[3];
+
+    // if we already have "-1", start from 2; else try -2 anyway
+    for(let n=2; n<=8; n++){
+      const candidate = `${base}-${n}${ext}`;
+      // pre-load and push only if exists
+      const img = new Image();
+      img.onload = () => {
+        // avoid duplicates if already present
+        if (!out.includes(candidate)) {
+          out.push(candidate);
+          gallery = out.slice();
+          buildThumbs();
+        }
+      };
+      img.onerror = () => {};
+      img.src = candidate;
+    }
+    return out;
+  }
+
   function openModal(product){
     currentProduct = product;
     modalTitle.textContent = product.title;
-    modalImg.src = product.img;
-    modalImg.alt = product.title;
     modalDesc.textContent = product.desc || '';
     modalPrice.textContent = product.price > 0 ? '£' + product.price.toFixed(2) : '';
-    modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent("Hi Iris93! I'd like to buy: " + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : ''));
+    modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent("Hi Iris93! I'd like to buy: " + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : '') );
+
+    // Build gallery
+    gallery = discoverGallery(product.img);
+    galleryIndex = 0;
+    modalImg.src = gallery[0];
+    buildThumbs();
+
     modal.classList.remove('hidden'); modal.classList.add('flex');
   }
-  function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); currentProduct = null; }
+  function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); currentProduct = null; gallery = []; }
   modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  prevImg.addEventListener('click', () => showImageAt(galleryIndex - 1));
+  nextImg.addEventListener('click', () => showImageAt(galleryIndex + 1));
 
+  // Card buttons
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('[data-product]');
@@ -603,15 +668,8 @@
       openModal(product);
     });
   });
-  document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('[data-product]');
-      const product = JSON.parse(card.dataset.product);
-      addToCart(product);
-    });
-  });
-  modalAdd.addEventListener('click', () => { if(currentProduct) addToCart(currentProduct); });
 
+  // ===== Cart =====
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
   const cartClose = document.getElementById('cartClose');
@@ -668,6 +726,15 @@
     const totalQty = cart.reduce((a,b) => a+b.qty, 0);
     cartCount.textContent = totalQty;
   }
+  const cardsGrid = document.getElementById('cardsGrid');
+  cardsGrid.addEventListener('click', e => {
+    const add = e.target.closest('.add-btn');
+    if (!add) return;
+    const card = add.closest('[data-product]');
+    const product = JSON.parse(card.dataset.product);
+    addToCart(product);
+  });
+
   checkoutBtn.addEventListener('click', () => {
     if(cart.length === 0){ alert('Your cart is empty.'); return; }
     const summary = cart.map(i => i.title + ' x' + i.qty + ' (£' + ((i.price||0)*i.qty).toFixed(2) + ')').join('%0A');
@@ -676,11 +743,12 @@
     window.open('https://wa.me/447000000000?text=' + msg, '_blank', 'noopener');
   });
 
-  // ===== FILTERS (form) affect Collections cards =====
+  // ===== FILTERS =====
   const categoryFilter = document.getElementById('categoryFilter');
   const priceFilter = document.getElementById('priceFilter');
   const applyFilters = document.getElementById('applyFilters');
   const clearFilters = document.getElementById('clearFilters');
+
   function runFilters(){
     const cat = categoryFilter ? categoryFilter.value : '';
     const maxPrice = priceFilter ? parseFloat(priceFilter.value || '0') : 0;
@@ -690,7 +758,6 @@
       const byPrice = !maxPrice || ((data.price || 0) <= maxPrice);
       card.classList.toggle('hidden', !(byCat && byPrice));
     });
-    // switch to Collections to show results
     const collectionsBtn = document.querySelector('[data-tab="collections"]');
     if (collectionsBtn) collectionsBtn.click();
     updateFilterCount();
@@ -698,7 +765,6 @@
   if (applyFilters) applyFilters.addEventListener('click', runFilters);
   if (clearFilters) clearFilters.addEventListener('click', () => { categoryFilter.value = ''; priceFilter.value = ''; runFilters(); });
 
-  // ===== Chip bar + live counter + reset-to-collections =====
   const chipBar = document.getElementById('chipBar');
   const filterCount = document.getElementById('filterCount');
   const resetToCollections = document.getElementById('resetToCollections');
@@ -747,7 +813,7 @@
   highlightChip('');
   updateFilterCount();
 
-  // ===== TABLE ENHANCEMENTS =====
+  // ===== TABLE (render from cards + index) =====
   const productMeta = {
     "funeral-flowers": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Sympathy", recipient:"Family/Friends", variants:["#a855f7","#ef4444","#f59e0b"], rrp:75, notes:"Soap or natural flowers." },
     "easter-basket": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Easter/Xmas", recipient:"Kids/Adults", variants:["#10b981","#f59e0b","#3b82f6"], rrp:18, notes:"Theme customisable." },
@@ -766,7 +832,6 @@
     "personalised-t": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#ef4444","#22c55e"], rrp:14, notes:"Sizes for kids & adults." }
   };
 
-  // Build Table Body from cards + productMeta
   const tblBody = document.getElementById('tblBody');
   function renderTable(){
     const cards = Array.from(document.querySelectorAll('[data-product]'));
@@ -777,7 +842,6 @@
       const price = Number(data.price || 0);
       const rrp = Number(meta.rrp || 0);
       const discount = (rrp && price && rrp > price) ? Math.round((100*(rrp-price))/rrp) + '%' : '—';
-
       let variantsHTML = '—';
       if (meta.variants && meta.variants.length){
         variantsHTML = meta.variants.map(c => '<span class="swatch" title="'+c+'" style="background:'+c+'"></span>').join('');
@@ -785,27 +849,28 @@
       const catBadge = '<span class="text-xs px-2 py-0.5 rounded-full border">'+ (data.category || 'other') +'</span>';
 
       const tr = document.createElement('tr');
-      tr.setAttribute('data-id', data.id);
-      tr.innerHTML = ''
-        + `<td class="border px-3 py-2">${data.title || ''}</td>`
-        + `<td class="border px-3 py-2" data-price="${price}">£${price ? price.toFixed(2) : '—'}</td>`
-        + `<td class="border px-3 py-2" data-rrp="${rrp}">${rrp ? '£'+rrp.toFixed(2) : '—'}</td>`
-        + `<td class="border px-3 py-2">${discount}</td>`
-        + `<td class="border px-3 py-2">${catBadge}</td>`
-        + `<td class="border px-3 py-2">${meta.personalise || 'Yes'}</td>`
-        + `<td class="border px-3 py-2">${meta.lead || '1–3 days'}</td>`
-        + `<td class="border px-3 py-2">${meta.status || 'In stock'}</td>`
-        + `<td class="border px-3 py-2" data-min="${meta.min || 1}">${meta.min || 1}</td>`
-        + `<td class="border px-3 py-2">${(meta.occasion || 'Any') + ' / ' + (meta.recipient || 'Anyone')}</td>`
-        + `<td class="border px-3 py-2">${variantsHTML}</td>`
-        + `<td class="border px-3 py-2">${meta.notes || (data.desc || '—')}</td>`
-        + `<td class="border px-3 py-2"><button class="view-row underline text-indigo-700">View</button></td>`;
+      tr.dataset.id = data.id;
+      tr.innerHTML = `
+        <td class="border px-3 py-2">${data.title || ''}</td>
+        <td class="border px-3 py-2" data-price="${price}">£${price ? price.toFixed(2) : '—'}</td>
+        <td class="border px-3 py-2" data-rrp="${rrp}">${rrp ? '£'+rrp.toFixed(2) : '—'}</td>
+        <td class="border px-3 py-2">${discount}</td>
+        <td class="border px-3 py-2">${catBadge}</td>
+        <td class="border px-3 py-2">${meta.personalise || 'Yes'}</td>
+        <td class="border px-3 py-2">${meta.lead || '1–3 days'}</td>
+        <td class="border px-3 py-2">${meta.status || 'In stock'}</td>
+        <td class="border px-3 py-2" data-min="${meta.min || 1}">${meta.min || 1}</td>
+        <td class="border px-3 py-2">${(meta.occasion || 'Any') + ' / ' + (meta.recipient || 'Anyone')}</td>
+        <td class="border px-3 py-2">${variantsHTML}</td>
+        <td class="border px-3 py-2">${meta.notes || (data.desc || '—')}</td>
+        <td class="border px-3 py-2"><button class="view-row underline text-indigo-700">View</button></td>
+      `;
       tblBody.appendChild(tr);
     });
     updateSummary();
   }
 
-  // Table interactions: search, sort, export, view
+  // Table interactions
   const tbl = document.getElementById('productsTbl');
   const search = document.getElementById('tblSearch');
   const summary = document.getElementById('tblSummary');
@@ -867,26 +932,24 @@
   }
   if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
+  // View from table -> use productsIndex to open modal (robust)
   tblBody.addEventListener('click', (e) => {
     const btn = e.target.closest('.view-row');
     if (!btn) return;
     const tr = btn.closest('tr');
     const id = tr.dataset.id;
-    const card = document.querySelector(`[data-product*="\"id\":\"${id}\""]`);
-    if (!card) return alert('Product details not found.');
-    const product = JSON.parse(card.dataset.product);
+    const product = productsIndex[id];
+    if (!product) return alert('Product details not found.');
     openModal(product);
   });
 
-  // Initial render of table from cards
+  // Initial render of table
   renderTable();
 </script>
 
-<!-- ===== Facebook SDK (required for Page Plugin) ===== -->
+<!-- Facebook SDK -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-  src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0">
-</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
 
 </body>
 </html>
