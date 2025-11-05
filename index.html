@@ -14,10 +14,12 @@
     .shadow-soft{ box-shadow:0 10px 30px rgba(17,24,39,.12); }
     .rounded-2xl iframe{ border-radius:1rem; overflow:hidden; }
     .filter-demo img:hover{ filter: brightness(1.1) saturate(1.05); transition: filter .2s ease; }
-    [data-badge]{ background: #faf5ff; border-color:#e9d8fd; }
+    [data-badge]{ background:#faf5ff; border-color:#e9d8fd; }
     .swatch{ display:inline-block; width:14px; height:14px; border-radius:9999px; border:1px solid #e5e7eb; margin-right:6px; vertical-align:middle;}
     .th-sortable{ cursor:pointer; }
     .th-sortable:after{ content:" ↕"; opacity:.4; }
+    /* Make Facebook Page Plugin responsive */
+    .fb-page, .fb-page iframe{ width:100% !important; }
   </style>
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">
@@ -68,13 +70,26 @@
 <!-- ===== SOCIAL EMBEDS ON MAIN PAGE ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
   <div class="grid lg:grid-cols-2 gap-6 items-start">
+    <!-- Facebook (SDK Page Plugin) -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
       <h3 class="text-xl font-semibold mb-2">Facebook</h3>
-      <iframe title="Facebook Page"
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-              width="100%" height="650" style="border:none;overflow:hidden"
-              scrolling="no" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      <div class="fb-page"
+           data-href="https://www.facebook.com/profile.php?id=100077254045255"
+           data-tabs="timeline"
+           data-width="500"
+           data-height="650"
+           data-small-header="false"
+           data-adapt-container-width="true"
+           data-hide-cover="false"
+           data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255"
+                    class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/profile.php?id=100077254045255">Iris93</a>
+        </blockquote>
+      </div>
     </div>
+
+    <!-- YouTube -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
       <h3 class="text-xl font-semibold mb-2">YouTube</h3>
       <div class="aspect-video rounded-2xl overflow-hidden">
@@ -94,7 +109,7 @@
 
   <div class="mt-6 space-y-8">
 
-    <!-- ===== COLLECTIONS (CARDS + GRID + CSS FILTERS) ===== -->
+    <!-- ===== COLLECTIONS ===== -->
     <div class="tab-panel" data-panel="collections">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
         <!-- CARD: Funeral flowers -->
@@ -385,7 +400,7 @@
       </div>
     </div>
 
-    <!-- ===== FILTERS (with chip bar & reset) ===== -->
+    <!-- ===== FILTERS ===== -->
     <div class="tab-panel hidden" data-panel="filters">
       <div class="bg-white rounded-2xl p-6 shadow-soft border">
         <h3 class="text-xl font-semibold">Filter products</h3>
@@ -435,7 +450,7 @@
       </div>
     </div>
 
-    <!-- ===== HTML TABLE (ENHANCED) ===== -->
+    <!-- ===== HTML TABLE ===== -->
     <div class="tab-panel hidden" data-panel="table">
       <div class="bg-white rounded-2xl p-6 border shadow-soft">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -865,6 +880,12 @@
 
   // Initial render of table from cards
   renderTable();
+</script>
+
+<!-- ===== Facebook SDK (required for Page Plugin) ===== -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0">
 </script>
 
 </body>
