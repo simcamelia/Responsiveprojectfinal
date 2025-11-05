@@ -15,10 +15,14 @@
     .rounded-2xl iframe{ border-radius:1rem; overflow:hidden; }
     .filter-demo img:hover{ filter: brightness(1.1) saturate(1.05); transition: filter .2s ease; }
     [data-badge]{ background: #faf5ff; border-color:#e9d8fd; }
+    .swatch{ display:inline-block; width:14px; height:14px; border-radius:9999px; border:1px solid #e5e7eb; margin-right:6px; vertical-align:middle;}
+    .th-sortable{ cursor:pointer; }
+    .th-sortable:after{ content:" ↕"; opacity:.4; }
   </style>
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">
 
+<!-- ===== NAV ===== -->
 <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
   <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
     <a href="#" class="flex items-center gap-3">
@@ -37,11 +41,14 @@
   </nav>
 </header>
 
+<!-- ===== HERO ===== -->
 <section class="brand-gradient text-white">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16 grid lg:grid-cols-2 gap-8 items-center">
     <div>
-      <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">Make it <span class="text-amber-200">personal</span>. Make it <span class="underline decoration-amber-300">memorable</span>.</h1>
-      <p class="mt-4 text-white/90 max-w-2xl">All products and prices below are parsed directly from your Word file.</p>
+      <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">
+        Make it <span class="text-amber-200">personal</span>. Make it <span class="underline decoration-amber-300">memorable</span>.
+      </h1>
+      <p class="mt-4 text-white/90 max-w-2xl">All products, prices and images are pulled from your curated content.</p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a href="#collections" class="inline-flex items-center gap-2 bg-white text-gray-800 px-4 py-2 rounded-xl shadow-soft"><i class="fa-solid fa-gift"></i> Browse Collections</a>
         <a href="#table" class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-xl hover:bg-white/10"><i class="fa-solid fa-table"></i> HTML Table</a>
@@ -56,6 +63,7 @@
   </div>
 </section>
 
+<!-- ===== TABS ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
   <div class="flex flex-wrap gap-2" role="tablist" aria-label="Shop tabs">
     <button class="tab-btn px-4 py-2 rounded-xl border" role="tab" aria-selected="true" data-tab="collections" id="collections">Collections</button>
@@ -67,296 +75,297 @@
 
   <div class="mt-6 space-y-8">
 
+    <!-- ===== COLLECTIONS (CARDS + GRID + CSS FILTERS) ===== -->
     <div class="tab-panel" data-panel="collections">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
-        
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{&quot;id&quot;: &quot;funeral-flowers&quot;, &quot;title&quot;: &quot;Funeral flowers&quot;, &quot;price&quot;: 65.0, &quot;img&quot;: &quot;funeral-flowers-1.jpg&quot;, &quot;desc&quot;: &quot;Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.&quot;, &quot;category&quot;: &quot;flowers&quot;}'>
-        <img class="h-48 w-full object-cover" src="funeral-flowers-1.jpg" alt="Funeral flowers">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Funeral flowers</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Flowers</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£65</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Funeral flowers -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"funeral-flowers","title":"Funeral flowers","price":65,"img":"funeral-flowers-1.jpg","desc":"Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.","category":"flowers"}'>
+          <img class="h-48 w-full object-cover" src="funeral-flowers-1.jpg" alt="Funeral flowers">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Funeral flowers</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Flowers</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Can be made with soap or natural flowers; colour flexible.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£65</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;easter-basket&quot;, &quot;title&quot;: &quot;Easter basket&quot;, &quot;price&quot;: 15.0, &quot;img&quot;: &quot;easter-basket-1.jpg&quot;, &quot;desc&quot;: &quot;Can create on request Christmas baskets, or other type of baskets(as required).&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="easter-basket-1.jpg" alt="Easter basket">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Easter basket</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can create on request Christmas baskets, or other type of baskets(as required).</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£15</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Easter basket -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"easter-basket","title":"Easter basket","price":15,"img":"easter-basket-1.jpg","desc":"Can create on request Christmas baskets, or other type of baskets(as required).","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="easter-basket-1.jpg" alt="Easter basket">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Easter basket</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Request any theme or season.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£15</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="wall-art" data-product='{&quot;id&quot;: &quot;mother-s-day-wall-art&quot;, &quot;title&quot;: &quot;Mother\u2019s Day Wall art&quot;, &quot;price&quot;: 10.0, &quot;img&quot;: &quot;mother-s-day-wall-art-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised and tweaked for any special occasion, and any special recipient.&quot;, &quot;category&quot;: &quot;wall-art&quot;}'>
-        <img class="h-48 w-full object-cover" src="mother-s-day-wall-art-1.jpg" alt="Mother’s Day Wall art">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Mother’s Day Wall art</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Wall-Art</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised and tweaked for any special occasion, and any special recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£10</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Mother’s Day Wall art -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="wall-art" data-product='{"id":"mother-s-day-wall-art","title":"Mother’s Day Wall art","price":10,"img":"mother-s-day-wall-art-1.jpg","desc":"Can be personalised and tweaked for any special occasion, and any special recipient.","category":"wall-art"}'>
+          <img class="h-48 w-full object-cover" src="mother-s-day-wall-art-1.jpg" alt="Mother’s Day Wall art">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Mother’s Day Wall art</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Wall-Art</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Designed to order.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£10</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;international-women-s-day&quot;, &quot;title&quot;: &quot;International Women\u2019s Day&quot;, &quot;price&quot;: 10.0, &quot;img&quot;: &quot;international-women-s-day-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised and tweaked for any special recipient.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="international-women-s-day-1.jpg" alt="International Women’s Day">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">International Women’s Day</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised and tweaked for any special recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£10</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: International Women’s Day -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"international-women-s-day","title":"International Women’s Day","price":10,"img":"international-women-s-day-1.jpg","desc":"Can be personalised and tweaked for any special recipient.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="international-women-s-day-1.jpg" alt="International Women’s Day">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">International Women’s Day</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Any style, language or name.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£10</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;mother-s-day-keyrings&quot;, &quot;title&quot;: &quot;Mother\u2019s Day keyrings&quot;, &quot;price&quot;: 1.5, &quot;img&quot;: &quot;mother-s-day-keyrings-1.jpg&quot;, &quot;desc&quot;: &quot;Can be done for other occasions, like Father\u2019s Day, Remembrance Day, Easter, Xmas, etc.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="mother-s-day-keyrings-1.jpg" alt="Mother’s Day keyrings">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Mother’s Day keyrings</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be done for other occasions, like Father’s Day, Remembrance Day, Easter, Xmas, etc.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£1.5</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Mother’s Day keyrings -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"mother-s-day-keyrings","title":"Mother’s Day keyrings","price":1.5,"img":"mother-s-day-keyrings-1.jpg","desc":"Can be done for other occasions, like Father’s Day, Remembrance Day, Easter, Xmas, etc.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="mother-s-day-keyrings-1.jpg" alt="Mother’s Day keyrings">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Mother’s Day keyrings</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Bulk discounts available.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£1.5</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;personalised-metal-water-bottles&quot;, &quot;title&quot;: &quot;Personalised metal water bottles&quot;, &quot;price&quot;: 13.0, &quot;img&quot;: &quot;personalised-metal-water-bottles-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="personalised-metal-water-bottles-1.jpg" alt="Personalised metal water bottles">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Personalised metal water bottles</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£13</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Personalised metal water bottles -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"personalised-metal-water-bottles","title":"Personalised metal water bottles","price":13,"img":"personalised-metal-water-bottles-1.jpg","desc":"Personalised to order.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="personalised-metal-water-bottles-1.jpg" alt="Personalised metal water bottles">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Personalised metal water bottles</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Great for school or gym.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£13</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;martis-martisor&quot;, &quot;title&quot;: &quot;Martis/Martisor&quot;, &quot;price&quot;: 2.0, &quot;img&quot;: &quot;martis-martisor-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="martis-martisor-1.jpg" alt="Martis/Martisor">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Martis/Martisor</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£2</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Martis/Martisor -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"martis-martisor","title":"Martis/Martisor","price":2,"img":"martis-martisor-1.jpg","desc":"Personalised to order.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="martis-martisor-1.jpg" alt="Martis/Martisor">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Martis/Martisor</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Traditional spring charm.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£2</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;martisor-and&quot;, &quot;title&quot;: &quot;Martisor  and&quot;, &quot;price&quot;: 1.0, &quot;img&quot;: &quot;martisor-and-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="martisor-and-1.jpg" alt="Martisor  and">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Martisor  and</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£1</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Martisor and -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"martisor-and","title":"Martisor  and","price":1,"img":"martisor-and-1.jpg","desc":"Personalised to order.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="martisor-and-1.jpg" alt="Martisor and">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Martisor  and</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Custom colours & charms.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£1</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="sweets" data-product='{&quot;id&quot;: &quot;sweet-treats-boxes&quot;, &quot;title&quot;: &quot;Sweet treats boxes&quot;, &quot;price&quot;: 3.0, &quot;img&quot;: &quot;sweet-treats-boxes-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised for any occasion and any recipient.&quot;, &quot;category&quot;: &quot;sweets&quot;}'>
-        <img class="h-48 w-full object-cover" src="sweet-treats-boxes-1.jpg" alt="Sweet treats boxes">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Sweet treats boxes</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Sweets</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised for any occasion and any recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£3</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Sweet treats boxes -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="sweets" data-product='{"id":"sweet-treats-boxes","title":"Sweet treats boxes","price":3,"img":"sweet-treats-boxes-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"sweets"}'>
+          <img class="h-48 w-full object-cover" src="sweet-treats-boxes-1.jpg" alt="Sweet treats boxes">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Sweet treats boxes</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Sweets</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Great party favours.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£3</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;soap-roses-boxes&quot;, &quot;title&quot;: &quot;Soap roses boxes&quot;, &quot;price&quot;: 11.0, &quot;img&quot;: &quot;soap-roses-boxes-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="soap-roses-boxes-1.jpg" alt="Soap roses boxes">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Soap roses boxes</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£11</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Soap roses boxes -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"soap-roses-boxes","title":"Soap roses boxes","price":11,"img":"soap-roses-boxes-1.jpg","desc":"Personalised to order.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="soap-roses-boxes-1.jpg" alt="Soap roses boxes">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Soap roses boxes</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Long-lasting, gift-ready.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£11</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{&quot;id&quot;: &quot;soap-flowers-bouquet&quot;, &quot;title&quot;: &quot;Soap flowers bouquet&quot;, &quot;price&quot;: 15.0, &quot;img&quot;: &quot;soap-flowers-bouquet-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;flowers&quot;}'>
-        <img class="h-48 w-full object-cover" src="soap-flowers-bouquet-1.jpg" alt="Soap flowers bouquet">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Soap flowers bouquet</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Flowers</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£15</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Soap flowers bouquet -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"soap-flowers-bouquet","title":"Soap flowers bouquet","price":15,"img":"soap-flowers-bouquet-1.jpg","desc":"Personalised to order.","category":"flowers"}'>
+          <img class="h-48 w-full object-cover" src="soap-flowers-bouquet-1.jpg" alt="Soap flowers bouquet">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Soap flowers bouquet</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Flowers</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Custom palette & size.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£15</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="mugs" data-product='{&quot;id&quot;: &quot;coffee-mugs-personalised&quot;, &quot;title&quot;: &quot;Coffee mugs personalised&quot;, &quot;price&quot;: 8.0, &quot;img&quot;: &quot;coffee-mugs-personalised-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised for any occasion and any recipient.&quot;, &quot;category&quot;: &quot;mugs&quot;}'>
-        <img class="h-48 w-full object-cover" src="coffee-mugs-personalised-1.jpg" alt="Coffee mugs personalised">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Coffee mugs personalised</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Mugs</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised for any occasion and any recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£8</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Coffee mugs personalised -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="mugs" data-product='{"id":"coffee-mugs-personalised","title":"Coffee mugs personalised","price":8,"img":"coffee-mugs-personalised-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"mugs"}'>
+          <img class="h-48 w-full object-cover" src="coffee-mugs-personalised-1.jpg" alt="Coffee mugs personalised">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Coffee mugs personalised</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Mugs</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Photos, names or messages.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£8</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;plastic-cups-for-birthday-parties-each&quot;, &quot;title&quot;: &quot;Plastic cups for birthday parties  each&quot;, &quot;price&quot;: 4.0, &quot;img&quot;: &quot;plastic-cups-for-birthday-parties-each-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised for any occasion and any recipient.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="plastic-cups-for-birthday-parties-each-1.jpg" alt="Plastic cups for birthday parties  each">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Plastic cups for birthday parties  each</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised for any occasion and any recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£4</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Plastic cups for birthday parties -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"plastic-cups-for-birthday-parties-each","title":"Plastic cups for birthday parties  each","price":4,"img":"plastic-cups-for-birthday-parties-each-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="plastic-cups-for-birthday-parties-each-1.jpg" alt="Plastic cups for birthday parties each">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Plastic cups for birthday parties</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Names, colours, themes.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£4</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;straw-glass-cups-with-lid&quot;, &quot;title&quot;: &quot;Straw glass cups with lid&quot;, &quot;price&quot;: 5.0, &quot;img&quot;: &quot;straw-glass-cups-with-lid-1.jpg&quot;, &quot;desc&quot;: &quot;Can be personalised for any occasion and any recipient.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="straw-glass-cups-with-lid-1.jpg" alt="Straw glass cups with lid">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Straw glass cups with lid</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Can be personalised for any occasion and any recipient.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£5</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Straw glass cups with lid -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"straw-glass-cups-with-lid","title":"Straw glass cups with lid","price":5,"img":"straw-glass-cups-with-lid-1.jpg","desc":"Can be personalised for any occasion and any recipient.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="straw-glass-cups-with-lid-1.jpg" alt="Straw glass cups with lid">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Straw glass cups with lid</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Reusable & customisable.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£5</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
 
-      <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{&quot;id&quot;: &quot;personalised-t&quot;, &quot;title&quot;: &quot;Personalised T&quot;, &quot;price&quot;: 11.0, &quot;img&quot;: &quot;personalised-t-1.jpg&quot;, &quot;desc&quot;: &quot;Personalised to order.&quot;, &quot;category&quot;: &quot;other&quot;}'>
-        <img class="h-48 w-full object-cover" src="personalised-t-1.jpg" alt="Personalised T">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold text-lg">Personalised T</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">Personalised to order.</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xl font-bold">£11</span>
-            <div class="flex gap-2">
-              <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
-              <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+        <!-- CARD: Personalised T -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="other" data-product='{"id":"personalised-t","title":"Personalised T","price":11,"img":"personalised-t-1.jpg","desc":"Personalised to order.","category":"other"}'>
+          <img class="h-48 w-full object-cover" src="personalised-t-1.jpg" alt="Personalised T">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg">Personalised T</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Other</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">Names, numbers, graphics.</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xl font-bold">£11</span>
+              <div class="flex gap-2">
+                <button class="view-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border hover:bg-gray-50"><i class="fa-regular fa-eye"></i> View</button>
+                <button class="add-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style="background: var(--accent);"><i class="fa-solid fa-cart-plus"></i> Add</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    
       </div>
     </div>
 
+    <!-- ===== FILTERS ===== -->
     <div class="tab-panel hidden" data-panel="filters">
       <div class="bg-white rounded-2xl p-6 shadow-soft border">
         <h3 class="text-xl font-semibold">Filter products</h3>
@@ -386,6 +395,7 @@
       </div>
     </div>
 
+    <!-- ===== EMBEDS ===== -->
     <div class="tab-panel hidden" data-panel="social">
       <div class="grid lg:grid-cols-2 gap-6 items-start">
         <div class="bg-white rounded-2xl p-4 shadow-soft border">
@@ -404,38 +414,62 @@
       </div>
     </div>
 
+    <!-- ===== HTML TABLE (ENHANCED) ===== -->
     <div class="tab-panel hidden" data-panel="table">
       <div class="bg-white rounded-2xl p-6 border shadow-soft">
-        <h3 class="text-xl font-semibold">Product List (from Word)</h3>
-        
-<table class="w-full text-sm border-collapse mt-4">
-  <thead>
-    <tr class="bg-gray-100">
-      <th class="border px-3 py-2 text-left">Product</th>
-      <th class="border px-3 py-2 text-left">Price</th>
-      <th class="border px-3 py-2 text-left">Category</th>
-      <th class="border px-3 py-2 text-left">Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td class='border px-3 py-2'>Funeral flowers</td><td class='border px-3 py-2'>£65</td><td class='border px-3 py-2'>flowers</td><td class='border px-3 py-2'>Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.</td></tr><tr><td class='border px-3 py-2'>Easter basket</td><td class='border px-3 py-2'>£15</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>Can create on request Christmas baskets, or other type of baskets(as required).</td></tr><tr><td class='border px-3 py-2'>Mother’s Day Wall art</td><td class='border px-3 py-2'>£10</td><td class='border px-3 py-2'>wall-art</td><td class='border px-3 py-2'>Can be personalised and tweaked for any special occasion, and any special recipient.</td></tr><tr><td class='border px-3 py-2'>International Women’s Day</td><td class='border px-3 py-2'>£10</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>Can be personalised and tweaked for any special recipient.</td></tr><tr><td class='border px-3 py-2'>Mother’s Day keyrings</td><td class='border px-3 py-2'>£1.5</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>Can be done for other occasions, like Father’s Day, Remembrance Day, Easter, Xmas, etc.</td></tr><tr><td class='border px-3 py-2'>Personalised metal water bottles</td><td class='border px-3 py-2'>£13</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>-</td></tr><tr><td class='border px-3 py-2'>Martis/Martisor</td><td class='border px-3 py-2'>£2</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>-</td></tr><tr><td class='border px-3 py-2'>Martisor  and</td><td class='border px-3 py-2'>£1</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>-</td></tr><tr><td class='border px-3 py-2'>Sweet treats boxes</td><td class='border px-3 py-2'>£3</td><td class='border px-3 py-2'>sweets</td><td class='border px-3 py-2'>Can be personalised for any occasion and any recipient.</td></tr><tr><td class='border px-3 py-2'>Soap roses boxes</td><td class='border px-3 py-2'>£11</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>-</td></tr><tr><td class='border px-3 py-2'>Soap flowers bouquet</td><td class='border px-3 py-2'>£15</td><td class='border px-3 py-2'>flowers</td><td class='border px-3 py-2'>-</td></tr><tr><td class='border px-3 py-2'>Coffee mugs personalised</td><td class='border px-3 py-2'>£8</td><td class='border px-3 py-2'>mugs</td><td class='border px-3 py-2'>Can be personalised for any occasion and any recipient.</td></tr><tr><td class='border px-3 py-2'>Plastic cups for birthday parties  each</td><td class='border px-3 py-2'>£4</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>Can be personalised for any occasion and any recipient.</td></tr><tr><td class='border px-3 py-2'>Straw glass cups with lid</td><td class='border px-3 py-2'>£5</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>Can be personalised for any occasion and any recipient.</td></tr><tr><td class='border px-3 py-2'>Personalised T</td><td class='border px-3 py-2'>£11</td><td class='border px-3 py-2'>other</td><td class='border px-3 py-2'>-</td></tr>
-  </tbody>
-</table>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 class="text-xl font-semibold">Product List (enhanced)</h3>
+          <div class="flex gap-2">
+            <input id="tblSearch" class="rounded-lg border px-3 py-2 w-60" placeholder="Search name, notes, recipient…" />
+            <button id="tblExport" class="rounded-lg border px-3 py-2">Export CSV</button>
+          </div>
+        </div>
 
+        <div class="overflow-auto max-h-[70vh] mt-4">
+          <table id="productsTbl" class="w-full text-sm border-collapse">
+            <caption class="sr-only">Iris93 products (sortable, filterable, with actions)</caption>
+            <thead class="bg-gray-100 sticky top-0 z-10">
+              <tr>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="text">Product</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="num">Price (£)</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="num">RRP (£)</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="num">Discount</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="text">Category</th>
+                <th class="border px-3 py-2 text-left">Personalisation</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="text">Lead time</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="text">Status</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="num">Min order</th>
+                <th class="border px-3 py-2 text-left th-sortable" data-sort="text">Occasion / Recipient</th>
+                <th class="border px-3 py-2 text-left">Variants</th>
+                <th class="border px-3 py-2 text-left">Notes</th>
+                <th class="border px-3 py-2 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody id="tblBody"></tbody>
+            <tfoot class="bg-gray-50">
+              <tr>
+                <td class="border px-3 py-2 font-medium" colspan="13">
+                  <span id="tblSummary">0 items • Avg £0.00</span>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
     </div>
 
+    <!-- ===== VIEW CODE (requirements list) ===== -->
     <div class="tab-panel hidden" data-panel="code">
       <div class="bg-white rounded-2xl p-6 border shadow-soft">
         <h3 class="text-xl font-semibold">Included requirements</h3>
         <ul class="mt-3 list-disc pl-6 text-sm text-gray-700 space-y-1">
           <li>Hero, Footer</li>
-          <li>Cards & Grids (product grid)</li>
+          <li>Cards &amp; Grids (product grid)</li>
           <li>Embeds (Facebook + YouTube)</li>
           <li>CSS Filters (hover effect)</li>
-          <li>HTML Table (all products)</li>
+          <li>HTML Table (enhanced: search, sort, export, badges, extra columns)</li>
           <li>Responsive (Tailwind grid & utilities)</li>
-          <li>Functional Category Filters</li>
+          <li>Functional Category &amp; Price Filters</li>
         </ul>
       </div>
     </div>
@@ -443,6 +477,7 @@
   </div>
 </section>
 
+<!-- ===== PRODUCT MODAL ===== -->
 <div id="productModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
   <div class="bg-white max-w-2xl w-full rounded-2xl overflow-hidden shadow-soft">
     <div class="flex items-center justify-between px-5 py-4 border-b">
@@ -465,6 +500,7 @@
   </div>
 </div>
 
+<!-- ===== CART DRAWER ===== -->
 <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-[90%] sm:w-[420px] bg-white shadow-2xl translate-x-full transition-transform duration-300 z-50">
   <div class="h-full flex flex-col">
     <div class="p-4 border-b flex items-center justify-between">
@@ -482,6 +518,7 @@
   </div>
 </aside>
 
+<!-- ===== FOOTER ===== -->
 <footer class="mt-14 border-t">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
     <p>© <span id="year"></span> Iris93 • Personalised Gifts</p>
@@ -489,26 +526,29 @@
   </div>
 </footer>
 
+<!-- ===== SCRIPTS ===== -->
 <script>
+  // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Tabs
   const tabButtons = document.querySelectorAll('.tab-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
-  tabButtons.forEach(function(btn){
-    btn.addEventListener('click', function () {
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
       const target = btn.dataset.tab;
-      tabButtons.forEach(function(b){ b.setAttribute('aria-selected', String(b === btn)); });
-      tabPanels.forEach(function(p){ p.classList.toggle('hidden', p.dataset.panel !== target); });
+      tabButtons.forEach(b => b.setAttribute('aria-selected', String(b === btn)));
+      tabPanels.forEach(p => p.classList.toggle('hidden', p.dataset.panel !== target));
       location.hash = target;
     });
   });
   const hash = location.hash.replace('#','');
   if(hash){
-    const targetBtn = Array.from(tabButtons).find(function(b){ return b.dataset.tab === hash; });
+    const targetBtn = Array.from(tabButtons).find(b => b.dataset.tab === hash);
     if(targetBtn) targetBtn.click();
   }
 
-  // Modal & cart behavior stays the same
+  // Modal & Cart
   const modal = document.getElementById('productModal');
   const modalClose = document.getElementById('modalClose');
   const modalTitle = document.getElementById('modalTitle');
@@ -517,9 +557,7 @@
   const modalPrice = document.getElementById('modalPrice');
   const modalAdd = document.getElementById('modalAdd');
   const modalBuy = document.getElementById('modalBuy');
-
   let currentProduct = null;
-
   function openModal(product){
     currentProduct = product;
     modalTitle.textContent = product.title;
@@ -527,28 +565,28 @@
     modalImg.alt = product.title;
     modalDesc.textContent = product.desc || '';
     modalPrice.textContent = product.price > 0 ? '£' + product.price.toFixed(2) : '';
-    modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent('Hi Iris93! I\\'d like to buy: ' + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : '') );
+    modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent("Hi Iris93! I'd like to buy: " + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : ''));
     modal.classList.remove('hidden'); modal.classList.add('flex');
   }
   function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); currentProduct = null; }
   modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
 
-  document.querySelectorAll('.view-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       const card = btn.closest('[data-product]');
       const product = JSON.parse(card.dataset.product);
       openModal(product);
     });
   });
-  document.querySelectorAll('.add-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       const card = btn.closest('[data-product]');
       const product = JSON.parse(card.dataset.product);
       addToCart(product);
     });
   });
-  modalAdd.addEventListener('click', function(){ if(currentProduct) addToCart(currentProduct); });
+  modalAdd.addEventListener('click', () => { if(currentProduct) addToCart(currentProduct); });
 
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
@@ -559,38 +597,30 @@
   const checkoutBtn = document.getElementById('checkoutBtn');
 
   let cart = [];
-
   function openCart(){ cartDrawer.style.transform = 'translateX(0)'; }
   function closeCart(){ cartDrawer.style.transform = 'translateX(100%)'; }
-
   cartBtn.addEventListener('click', openCart);
   cartClose.addEventListener('click', closeCart);
 
   function addToCart(p){
-    const existing = cart.find(function(i){ return i.id === p.id; });
+    const existing = cart.find(i => i.id === p.id);
     if(existing){ existing.qty += 1; } else { cart.push(Object.assign({ qty:1 }, p)); }
     renderCart();
     cartBtn.classList.add('ring-2','ring-amber-400');
-    setTimeout(function(){ cartBtn.classList.remove('ring-2','ring-amber-400'); }, 400);
+    setTimeout(() => cartBtn.classList.remove('ring-2','ring-amber-400'), 400);
   }
-
-  function removeFromCart(id){
-    cart = cart.filter(function(i){ return i.id !== id; });
-    renderCart();
-  }
-
+  function removeFromCart(id){ cart = cart.filter(i => i.id !== id); renderCart(); }
   function changeQty(id, delta){
-    const item = cart.find(function(i){ return i.id === id; });
+    const item = cart.find(i => i.id === id);
     if(!item) return;
     item.qty += delta;
     if(item.qty <= 0) removeFromCart(id);
     renderCart();
   }
-
   function renderCart(){
     cartItems.innerHTML = '';
     let subtotal = 0;
-    cart.forEach(function(item){
+    cart.forEach(item => {
       subtotal += (item.price || 0) * item.qty;
       const row = document.createElement('div');
       row.className = 'flex gap-3 items-center border rounded-xl p-2';
@@ -605,45 +635,183 @@
         +     '<button class="px-2 py-1 border rounded-lg text-rose-600 remove">Remove</button>'
         +   '</div>'
         + '</div>';
-      row.getElementsByClassName('qty-dec')[0].addEventListener('click', function(){ changeQty(item.id, -1); });
-      row.getElementsByClassName('qty-inc')[0].addEventListener('click', function(){ changeQty(item.id, +1); });
-      row.getElementsByClassName('remove')[0].addEventListener('click', function(){ removeFromCart(item.id); });
+      row.getElementsByClassName('qty-dec')[0].addEventListener('click', () => changeQty(item.id, -1));
+      row.getElementsByClassName('qty-inc')[0].addEventListener('click', () => changeQty(item.id, +1));
+      row.getElementsByClassName('remove')[0].addEventListener('click', () => removeFromCart(item.id));
       cartItems.appendChild(row);
     });
     cartSubtotal.textContent = '£' + subtotal.toFixed(2);
-    const totalQty = cart.reduce(function(a,b){ return a+b.qty; }, 0);
+    const totalQty = cart.reduce((a,b) => a+b.qty, 0);
     cartCount.textContent = totalQty;
   }
-
-  checkoutBtn.addEventListener('click', function(){
+  checkoutBtn.addEventListener('click', () => {
     if(cart.length === 0){ alert('Your cart is empty.'); return; }
-    const summary = cart.map(function(i){ return i.title + ' x' + i.qty + ' (£' + ((i.price||0)*i.qty).toFixed(2) + ')'; }).join('%0A');
-    const total = cart.reduce(function(a,b){ return a+(b.price||0)*b.qty; }, 0);
-    const msg = 'Hi Iris93!%0A%0AI\\'d like to order:%0A' + summary + '%0A%0ATotal: £' + total.toFixed(2) + '.%0AName:%0ADelivery address:%0ANotes:';
+    const summary = cart.map(i => i.title + ' x' + i.qty + ' (£' + ((i.price||0)*i.qty).toFixed(2) + ')').join('%0A');
+    const total = cart.reduce((a,b) => a+(b.price||0)*b.qty, 0);
+    const msg = 'Hi Iris93!%0A%0AI\'d like to order:%0A' + summary + '%0A%0ATotal: £' + total.toFixed(2) + '.%0AName:%0ADelivery address:%0ANotes:';
     window.open('https://wa.me/447000000000?text=' + msg, '_blank', 'noopener');
   });
 
-  // Apply category/price filters
+  // Category/price filters
   const categoryFilter = document.getElementById('categoryFilter');
   const priceFilter = document.getElementById('priceFilter');
   const applyFilters = document.getElementById('applyFilters');
   const clearFilters = document.getElementById('clearFilters');
-
   function runFilters(){
-    const cat = categoryFilter.value;
-    const maxPrice = parseFloat(priceFilter.value || '0');
-    document.querySelectorAll('[data-product]').forEach(function(card){
+    const cat = categoryFilter ? categoryFilter.value : '';
+    const maxPrice = priceFilter ? parseFloat(priceFilter.value || '0') : 0;
+    document.querySelectorAll('[data-product]').forEach(card => {
       const data = JSON.parse(card.dataset.product);
       const byCat = !cat || (data.category === cat);
-      const byPrice = !maxPrice || ( (data.price || 0) <= maxPrice );
+      const byPrice = !maxPrice || ((data.price || 0) <= maxPrice);
       card.classList.toggle('hidden', !(byCat && byPrice));
     });
   }
-
   if (applyFilters) applyFilters.addEventListener('click', runFilters);
-  if (clearFilters) clearFilters.addEventListener('click', function(){
-    categoryFilter.value = ''; priceFilter.value = ''; runFilters();
+  if (clearFilters) clearFilters.addEventListener('click', () => { categoryFilter.value = ''; priceFilter.value = ''; runFilters(); });
+
+  // ===== TABLE ENHANCEMENTS =====
+  // Per-product metadata to enrich the table with optional columns.
+  const productMeta = {
+    "funeral-flowers": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Sympathy", recipient:"Family/Friends", variants:["#a855f7","#ef4444","#f59e0b"], rrp:75, notes:"Soap or natural flowers." },
+    "easter-basket": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Easter/Xmas", recipient:"Kids/Adults", variants:["#10b981","#f59e0b","#3b82f6"], rrp:18, notes:"Theme customisable." },
+    "mother-s-day-wall-art": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Mother’s Day", recipient:"Mum/Grandma", variants:["#ef4444","#f59e0b","#0ea5e9"], rrp:12, notes:"Digital or printed." },
+    "international-women-s-day": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Women’s Day", recipient:"Her", variants:["#a855f7","#ec4899","#fbbf24"], rrp:12, notes:"Custom names/messages." },
+    "mother-s-day-keyrings": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:5, occasion:"Mother’s/Father’s Day", recipient:"Teachers/Parents", variants:["#ef4444","#22c55e","#3b82f6"], rrp:2, notes:"Bulk pricing available." },
+    "personalised-metal-water-bottles": { personalise:"Yes", lead:"2–3 days", status:"In stock", min:1, occasion:"School/Sports", recipient:"Kids/Adults", variants:["#0ea5e9","#111827","#f59e0b"], rrp:16, notes:"Dishwasher-safe (top rack)." },
+    "martis-martisor": { personalise:"Yes", lead:"1 day", status:"In stock", min:2, occasion:"Mărțișor", recipient:"Friends/Colleagues", variants:["#ef4444","#ffffff"], rrp:3, notes:"Traditional charm." },
+    "martisor-and": { personalise:"Yes", lead:"1 day", status:"In stock", min:2, occasion:"Mărțișor", recipient:"Kids/Adults", variants:["#ef4444","#f59e0b","#14b8a6"], rrp:2, notes:"Mix & match charms." },
+    "sweet-treats-boxes": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:4, occasion:"Birthdays", recipient:"Kids/Party guests", variants:["#f59e0b","#22c55e","#eab308"], rrp:4, notes:"Contents vary; nut-free on request." },
+    "soap-roses-boxes": { personalise:"Yes", lead:"2 days", status:"In stock", min:1, occasion:"Anniversary", recipient:"Partner", variants:["#ef4444","#f472b6","#14b8a6"], rrp:14, notes:"Long-lasting soap petals." },
+    "soap-flowers-bouquet": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Birthday/Anniversary", recipient:"Her", variants:["#a855f7","#f59e0b","#10b981"], rrp:18, notes:"Custom sizes available." },
+    "coffee-mugs-personalised": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#3b82f6","#ef4444"], rrp:10, notes:"Photo/text prints." },
+    "plastic-cups-for-birthday-parties-each": { personalise:"Yes", lead:"1 day", status:"In stock", min:6, occasion:"Birthday", recipient:"Kids", variants:["#3b82f6","#f59e0b","#22c55e"], rrp:5, notes:"Reusable party cups." },
+    "straw-glass-cups-with-lid": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Everyday", recipient:"Teen/Adult", variants:["#111827","#10b981","#f59e0b"], rrp:6, notes:"Glass straw included." },
+    "personalised-t": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#ef4444","#22c55e"], rrp:14, notes:"Sizes for kids & adults." }
+  };
+
+  // Build Table Body from cards + productMeta
+  const tbody = document.getElementById('tblBody');
+  function renderTable(){
+    const cards = Array.from(document.querySelectorAll('[data-product]'));
+    tbody.innerHTML = '';
+    cards.forEach(card => {
+      const data = JSON.parse(card.dataset.product);
+      const meta = productMeta[data.id] || {};
+      const price = Number(data.price || 0);
+      const rrp = Number(meta.rrp || 0);
+      const discount = (rrp && price && rrp > price) ? Math.round((100*(rrp-price))/rrp) + '%' : '—';
+
+      // Variants swatches HTML
+      let variantsHTML = '—';
+      if (meta.variants && meta.variants.length){
+        variantsHTML = meta.variants.map(c => '<span class="swatch" title="'+c+'" style="background:'+c+'"></span>').join('');
+      }
+
+      // Category badge
+      const catBadge = '<span class="text-xs px-2 py-0.5 rounded-full border">'+ (data.category || 'other') +'</span>';
+
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-id', data.id);
+      tr.innerHTML = ''
+        + `<td class="border px-3 py-2">${data.title || ''}</td>`
+        + `<td class="border px-3 py-2" data-price="${price}">£${price ? price.toFixed(2) : '—'}</td>`
+        + `<td class="border px-3 py-2" data-rrp="${rrp}">${rrp ? '£'+rrp.toFixed(2) : '—'}</td>`
+        + `<td class="border px-3 py-2">${discount}</td>`
+        + `<td class="border px-3 py-2">${catBadge}</td>`
+        + `<td class="border px-3 py-2">${meta.personalise || 'Yes'}</td>`
+        + `<td class="border px-3 py-2">${meta.lead || '1–3 days'}</td>`
+        + `<td class="border px-3 py-2">${meta.status || 'In stock'}</td>`
+        + `<td class="border px-3 py-2" data-min="${meta.min || 1}">${meta.min || 1}</td>`
+        + `<td class="border px-3 py-2">${(meta.occasion || 'Any') + ' / ' + (meta.recipient || 'Anyone')}</td>`
+        + `<td class="border px-3 py-2">${variantsHTML}</td>`
+        + `<td class="border px-3 py-2">${meta.notes || (data.desc || '—')}</td>`
+        + `<td class="border px-3 py-2"><button class="view-row underline text-indigo-700">View</button></td>`;
+      tbody.appendChild(tr);
+    });
+    updateSummary();
+  }
+
+  // Table interactions: search, sort, export, view
+  const tbl = document.getElementById('productsTbl');
+  const search = document.getElementById('tblSearch');
+  const summary = document.getElementById('tblSummary');
+  const exportBtn = document.getElementById('tblExport');
+
+  // Sort on header click
+  tbl.querySelectorAll('thead th[data-sort]').forEach((th, idx) => {
+    let dir = 1;
+    th.addEventListener('click', () => {
+      const type = th.dataset.sort; // "text" | "num"
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      rows.sort((a,b) => {
+        const A = a.children[idx].textContent.trim();
+        const B = b.children[idx].textContent.trim();
+        if (type === 'num') {
+          const aNum = parseFloat(a.children[idx].dataset.price || a.children[idx].dataset.rrp || a.children[idx].dataset.min || A.replace(/[^\d.]/g,'')) || 0;
+          const bNum = parseFloat(b.children[idx].dataset.price || b.children[idx].dataset.rrp || b.children[idx].dataset.min || B.replace(/[^\d.]/g,'')) || 0;
+          return (aNum - bNum) * dir;
+        }
+        return A.localeCompare(B) * dir;
+      });
+      dir *= -1;
+      rows.forEach(r => tbody.appendChild(r));
+      updateSummary();
+    });
   });
+
+  // Filter rows by search
+  function filterRows() {
+    const q = (search.value || '').toLowerCase();
+    tbody.querySelectorAll('tr').forEach(tr => {
+      const text = tr.textContent.toLowerCase();
+      tr.classList.toggle('hidden', !text.includes(q));
+    });
+    updateSummary();
+  }
+  search.addEventListener('input', filterRows);
+
+  // Summary (count + average price of visible)
+  function updateSummary() {
+    const visible = Array.from(tbody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
+    const prices = visible.map(tr => {
+      const priceCell = tr.querySelector('[data-price]');
+      return priceCell ? parseFloat(priceCell.dataset.price || '0') : 0;
+    });
+    const count = visible.length;
+    const avg = prices.length ? (prices.reduce((a,b)=>a+b,0)/prices.length) : 0;
+    summary.textContent = `${count} item${count!==1?'s':''} • Avg £${avg.toFixed(2)}`;
+  }
+
+  // CSV export (visible rows only)
+  function exportCSV() {
+    const visible = Array.from(tbody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
+    const head = Array.from(tbl.querySelectorAll('thead th')).map(th => th.textContent.trim());
+    const rows = visible.map(tr => Array.from(tr.children).map(td => `"${td.textContent.replace(/"/g,'""').trim()}"`));
+    const csv = [head, ...rows].map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'iris93-products.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  exportBtn.addEventListener('click', exportCSV);
+
+  // “View” action -> open modal using card data
+  tbody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.view-row');
+    if (!btn) return;
+    const tr = btn.closest('tr');
+    const id = tr.dataset.id;
+    const card = document.querySelector(`[data-product*="\"id\":\"${id}\""]`);
+    if (!card) return alert('Product details not found.');
+    const product = JSON.parse(card.dataset.product);
+    openModal(product);
+  });
+
+  // Initial render of table from cards
+  renderTable();
 </script>
 
 </body>
