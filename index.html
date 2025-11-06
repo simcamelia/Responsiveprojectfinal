@@ -72,25 +72,44 @@
   </div>
 </section>
 
-<!-- ===== SOCIAL EMBEDS ===== -->
+<!-- ===== SOCIAL EMBEDS (with FB fallback) ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
   <div class="grid lg:grid-cols-2 gap-6 items-start">
-    <!-- Facebook (SDK Page Plugin) -->
+    <!-- Facebook -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
       <h3 class="text-xl font-semibold mb-2">Facebook</h3>
-      <div class="fb-page"
-           data-href="https://www.facebook.com/profile.php?id=100077254045255"
-           data-tabs="timeline"
-           data-width="500"
-           data-height="650"
-           data-small-header="false"
-           data-adapt-container-width="true"
-           data-hide-cover="false"
-           data-show-facepile="true">
-        <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255"
-                    class="fb-xfbml-parse-ignore">
-          <a href="https://www.facebook.com/profile.php?id=100077254045255">Iris93</a>
-        </blockquote>
+
+      <!-- Fallback (hidden initially) -->
+      <div id="fb-fallback" class="hidden">
+        <div class="rounded-xl border p-4 bg-gray-50">
+          <p class="text-sm text-gray-700">
+            Your browser is blocking the Facebook embed. You can still view our latest posts directly on Facebook.
+          </p>
+          <a href="https://www.facebook.com/profile.php?id=100077254045255"
+             target="_blank" rel="noopener"
+             class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white"
+             style="background: var(--brand);">
+            <i class="fa-brands fa-facebook"></i> Open on Facebook
+          </a>
+        </div>
+      </div>
+
+      <!-- Official Page Plugin -->
+      <div id="fb-wrapper">
+        <div class="fb-page"
+             data-href="https://www.facebook.com/profile.php?id=100077254045255"
+             data-tabs="timeline"
+             data-width="500"
+             data-height="650"
+             data-small-header="false"
+             data-adapt-container-width="true"
+             data-hide-cover="false"
+             data-show-facepile="true">
+          <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255"
+                      class="fb-xfbml-parse-ignore">
+            <a href="https://www.facebook.com/profile.php?id=100077254045255">Iris93</a>
+          </blockquote>
+        </div>
       </div>
     </div>
 
@@ -114,11 +133,11 @@
 
   <div class="mt-6 space-y-8">
 
-    <!-- ===== COLLECTIONS (cards) ===== -->
+    <!-- ===== COLLECTIONS ===== -->
     <div class="tab-panel" data-panel="collections">
       <div id="cardsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
 
-        <!-- Each card keeps a single main image; the modal will show all discovered images -->
+        <!-- Cards (one main image; modal will show gallery if -2..-8.jpg exist) -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"funeral-flowers","title":"Funeral flowers","price":65,"img":"funeral-flowers-1.jpg","desc":"Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.","category":"flowers"}'>
           <img class="h-48 w-full object-cover" src="funeral-flowers-1.jpg" alt="Funeral flowers">
           <div class="p-4">
@@ -569,15 +588,15 @@
     if(targetBtn) targetBtn.click();
   }
 
-  // ===== Build a product index from cards (used by table + modal) =====
+  // Product index (for table + modal)
   function getAllProducts(){
-    const cards = Array.from(document.querySelectorAll('[data-product]'));
-    return cards.map(c => JSON.parse(c.dataset.product));
+    return Array.from(document.querySelectorAll('[data-product]'))
+      .map(c => JSON.parse(c.dataset.product));
   }
   const productsIndex = {};
   getAllProducts().forEach(p => { productsIndex[p.id] = p; });
 
-  // ===== Modal + Gallery =====
+  // Modal + Gallery
   const modal = document.getElementById('productModal');
   const modalClose = document.getElementById('modalClose');
   const modalTitle = document.getElementById('modalTitle');
@@ -600,7 +619,6 @@
     modalImg.src = gallery[galleryIndex];
     Array.from(thumbs.children).forEach((t,idx) => t.classList.toggle('active', idx===galleryIndex));
   }
-
   function buildThumbs(){
     thumbs.innerHTML = '';
     gallery.forEach((src, idx) => {
@@ -611,22 +629,16 @@
       thumbs.appendChild(im);
     });
   }
-
-  // Try to auto-discover extra images: fn-1.jpg, fn-2.jpg, ... up to -8.jpg
   function discoverGallery(firstSrc){
     const out = [firstSrc];
     const m = firstSrc.match(/^(.*?)(-\d+)?(\.[a-zA-Z0-9]+)$/);
     if (!m) return out;
     const base = m[1];
     const ext  = m[3];
-
-    // if we already have "-1", start from 2; else try -2 anyway
     for(let n=2; n<=8; n++){
       const candidate = `${base}-${n}${ext}`;
-      // pre-load and push only if exists
       const img = new Image();
       img.onload = () => {
-        // avoid duplicates if already present
         if (!out.includes(candidate)) {
           out.push(candidate);
           gallery = out.slice();
@@ -638,20 +650,16 @@
     }
     return out;
   }
-
   function openModal(product){
     currentProduct = product;
     modalTitle.textContent = product.title;
     modalDesc.textContent = product.desc || '';
     modalPrice.textContent = product.price > 0 ? '£' + product.price.toFixed(2) : '';
     modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent("Hi Iris93! I'd like to buy: " + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : '') );
-
-    // Build gallery
     gallery = discoverGallery(product.img);
     galleryIndex = 0;
     modalImg.src = gallery[0];
     buildThumbs();
-
     modal.classList.remove('hidden'); modal.classList.add('flex');
   }
   function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); currentProduct = null; gallery = []; }
@@ -660,7 +668,6 @@
   prevImg.addEventListener('click', () => showImageAt(galleryIndex - 1));
   nextImg.addEventListener('click', () => showImageAt(galleryIndex + 1));
 
-  // Card buttons
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('[data-product]');
@@ -669,7 +676,7 @@
     });
   });
 
-  // ===== Cart =====
+  // Cart
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
   const cartClose = document.getElementById('cartClose');
@@ -723,16 +730,13 @@
       cartItems.appendChild(row);
     });
     cartSubtotal.textContent = '£' + subtotal.toFixed(2);
-    const totalQty = cart.reduce((a,b) => a+b.qty, 0);
-    cartCount.textContent = totalQty;
+    cartCount.textContent = cart.reduce((a,b) => a+b.qty, 0);
   }
-  const cardsGrid = document.getElementById('cardsGrid');
-  cardsGrid.addEventListener('click', e => {
+  document.getElementById('cardsGrid').addEventListener('click', e => {
     const add = e.target.closest('.add-btn');
     if (!add) return;
     const card = add.closest('[data-product]');
-    const product = JSON.parse(card.dataset.product);
-    addToCart(product);
+    addToCart(JSON.parse(card.dataset.product));
   });
 
   checkoutBtn.addEventListener('click', () => {
@@ -743,7 +747,7 @@
     window.open('https://wa.me/447000000000?text=' + msg, '_blank', 'noopener');
   });
 
-  // ===== FILTERS =====
+  // Filters
   const categoryFilter = document.getElementById('categoryFilter');
   const priceFilter = document.getElementById('priceFilter');
   const applyFilters = document.getElementById('applyFilters');
@@ -781,7 +785,7 @@
     const cards = Array.from(document.querySelectorAll('[data-product]'));
     const visible = cards.filter(c => !c.classList.contains('hidden')).length;
     const total = cards.length;
-    if (filterCount) filterCount.textContent = visible === total ? 'Showing all items' : `Showing ${visible} of ${total} items`;
+    filterCount.textContent = visible === total ? 'Showing all items' : `Showing ${visible} of ${total} items`;
   }
   function runFiltersPublic(){
     if (typeof runFilters === 'function') runFilters();
@@ -813,7 +817,7 @@
   highlightChip('');
   updateFilterCount();
 
-  // ===== TABLE (render from cards + index) =====
+  // Table build & interactions
   const productMeta = {
     "funeral-flowers": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Sympathy", recipient:"Family/Friends", variants:["#a855f7","#ef4444","#f59e0b"], rrp:75, notes:"Soap or natural flowers." },
     "easter-basket": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Easter/Xmas", recipient:"Kids/Adults", variants:["#10b981","#f59e0b","#3b82f6"], rrp:18, notes:"Theme customisable." },
@@ -870,7 +874,7 @@
     updateSummary();
   }
 
-  // Table interactions
+  // Table interactions: search, sort, export, view
   const tbl = document.getElementById('productsTbl');
   const search = document.getElementById('tblSearch');
   const summary = document.getElementById('tblSummary');
@@ -932,24 +936,42 @@
   }
   if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
-  // View from table -> use productsIndex to open modal (robust)
+  // Table -> Modal (robust via index)
   tblBody.addEventListener('click', (e) => {
-    const btn = e.target.closest('.view-row');
+    const btn = e.target.closest('button.view-row');
     if (!btn) return;
-    const tr = btn.closest('tr');
-    const id = tr.dataset.id;
+    const id = btn.closest('tr').dataset.id;
     const product = productsIndex[id];
     if (!product) return alert('Product details not found.');
     openModal(product);
   });
 
-  // Initial render of table
+  // Initial render
   renderTable();
 </script>
 
-<!-- Facebook SDK -->
+<!-- Facebook SDK + fallback detector -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
+<script>
+  (function () {
+    function tryFallback() {
+      var wrapper = document.getElementById('fb-wrapper');
+      var fallback = document.getElementById('fb-fallback');
+      if (!wrapper || !fallback) return;
+      var iframe = wrapper.querySelector('iframe');
+      var blocked = !iframe || iframe.clientHeight < 100;
+      if (blocked) {
+        wrapper.classList.add('hidden');
+        fallback.classList.remove('hidden');
+      }
+    }
+    window.addEventListener('load', function () {
+      setTimeout(tryFallback, 1800);
+    });
+  })();
+</script>
 
 </body>
 </html>
