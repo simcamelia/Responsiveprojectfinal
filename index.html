@@ -18,9 +18,7 @@
     .swatch{ display:inline-block; width:14px; height:14px; border-radius:9999px; border:1px solid #e5e7eb; margin-right:6px; vertical-align:middle;}
     .th-sortable{ cursor:pointer; }
     .th-sortable:after{ content:" ↕"; opacity:.4; }
-    /* Facebook Page Plugin responsive */
     .fb-page, .fb-page iframe{ width:100% !important; }
-    /* Modal gallery */
     .thumb{ width:60px; height:60px; border-radius:.5rem; object-fit:cover; border:1px solid #e5e7eb; cursor:pointer; }
     .thumb.active{ outline:3px solid #a78bfa; }
     .carousel-btn{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.45); color:#fff; border:none; width:40px; height:40px; border-radius:9999px; display:flex; align-items:center; justify-content:center; }
@@ -72,18 +70,18 @@
   </div>
 </section>
 
-<!-- ===== SOCIAL EMBEDS (with FB fallback) ===== -->
+<!-- ===== SOCIAL EMBEDS ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
   <div class="grid lg:grid-cols-2 gap-6 items-start">
-    <!-- Facebook -->
+    <!-- FACEBOOK: SDK → iframe → fallback -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
       <h3 class="text-xl font-semibold mb-2">Facebook</h3>
 
-      <!-- Fallback (hidden initially) -->
+      <!-- Fallback -->
       <div id="fb-fallback" class="hidden">
         <div class="rounded-xl border p-4 bg-gray-50">
           <p class="text-sm text-gray-700">
-            Your browser is blocking the Facebook embed. You can still view our latest posts directly on Facebook.
+            Your browser is blocking the Facebook embed. View our latest posts directly on Facebook:
           </p>
           <a href="https://www.facebook.com/profile.php?id=100077254045255"
              target="_blank" rel="noopener"
@@ -94,8 +92,8 @@
         </div>
       </div>
 
-      <!-- Official Page Plugin -->
-      <div id="fb-wrapper">
+      <!-- SDK Page Plugin -->
+      <div id="fb-sdk-wrap">
         <div class="fb-page"
              data-href="https://www.facebook.com/profile.php?id=100077254045255"
              data-tabs="timeline"
@@ -105,19 +103,33 @@
              data-adapt-container-width="true"
              data-hide-cover="false"
              data-show-facepile="true">
-          <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255"
-                      class="fb-xfbml-parse-ignore">
+          <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255" class="fb-xfbml-parse-ignore">
             <a href="https://www.facebook.com/profile.php?id=100077254045255">Iris93</a>
           </blockquote>
         </div>
       </div>
+
+      <!-- Direct iframe (often works when SDK is blocked) -->
+      <div id="fb-iframe-wrap" class="hidden">
+        <iframe
+          title="Facebook Page"
+          style="border:none; overflow:hidden; width:100%; height:650px;"
+          scrolling="no" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true">
+        </iframe>
+      </div>
     </div>
 
-    <!-- YouTube -->
+    <!-- YOUTUBE -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
       <h3 class="text-xl font-semibold mb-2">YouTube</h3>
       <div class="aspect-video rounded-2xl overflow-hidden">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9TF9BZJgF5g?list=RD9TF9BZJgF5g&start_radio=1&rel=0&modestbranding=1" title="Playlist ambience" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="100%" height="100%"
+          src="https://www.youtube.com/embed/9TF9BZJgF5g?list=RD9TF9BZJgF5g&start_radio=1&rel=0&modestbranding=1"
+          title="Playlist ambience" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -136,8 +148,7 @@
     <!-- ===== COLLECTIONS ===== -->
     <div class="tab-panel" data-panel="collections">
       <div id="cardsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 filter-demo">
-
-        <!-- Cards (one main image; modal will show gallery if -2..-8.jpg exist) -->
+        <!-- Cards (modal auto-detects extra images: -2..-8.jpg) -->
         <div class="bg-white rounded-2xl shadow-soft overflow-hidden border" data-category="flowers" data-product='{"id":"funeral-flowers","title":"Funeral flowers","price":65,"img":"funeral-flowers-1.jpg","desc":"Can be made for any family member or friend, and it can be made with soap roses, or natural flowers. Flexible on colour schemes.","category":"flowers"}'>
           <img class="h-48 w-full object-cover" src="funeral-flowers-1.jpg" alt="Funeral flowers">
           <div class="p-4">
@@ -145,7 +156,7 @@
               <h3 class="font-semibold text-lg">Funeral flowers</h3>
               <span class="text-xs px-2 py-0.5 rounded-full border" data-badge>Flowers</span>
             </div>
-            <p class="text-sm text-gray-600 mt-1">Can be made with soap or natural flowers; colour flexible.</p>
+            <p class="text-sm text-gray-600 mt-1">Soap or natural flowers; colour flexible.</p>
             <div class="mt-3 flex items-center justify-between">
               <span class="text-xl font-bold">£65</span>
               <div class="flex gap-2">
@@ -416,7 +427,6 @@
       <div class="bg-white rounded-2xl p-6 shadow-soft border">
         <h3 class="text-xl font-semibold">Filter products</h3>
 
-        <!-- Chip bar -->
         <div class="mt-3 flex flex-wrap gap-2" id="chipBar" aria-label="Quick category filter">
           <button class="chip px-3 py-1.5 rounded-full border" data-cat="">All</button>
           <button class="chip px-3 py-1.5 rounded-full border" data-cat="flowers">Flowers</button>
@@ -428,7 +438,6 @@
           <button class="chip px-3 py-1.5 rounded-full border" data-cat="other">Other</button>
         </div>
 
-        <!-- Form controls -->
         <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <label class="block">
             <span class="text-sm">Category</span>
@@ -454,7 +463,6 @@
           </div>
         </div>
 
-        <!-- Results counter -->
         <p class="text-sm text-gray-600 mt-3">
           <span id="filterCount">Showing all items</span>. Filters affect the cards in <strong>Collections</strong>.
         </p>
@@ -516,7 +524,6 @@
       <button id="modalClose" class="text-gray-500 hover:text-gray-700"><i class="fa-solid fa-xmark text-xl"></i></button>
     </div>
 
-    <!-- Carousel area -->
     <div class="relative">
       <img id="modalImg" class="w-full h-80 object-cover" alt="">
       <button class="carousel-btn left" id="prevImg" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
@@ -583,20 +590,13 @@
     });
   });
   const hash = location.hash.replace('#','');
-  if(hash){
-    const targetBtn = Array.from(tabButtons).find(b => b.dataset.tab === hash);
-    if(targetBtn) targetBtn.click();
-  }
+  if(hash){ const b = Array.from(tabButtons).find(x => x.dataset.tab === hash); if(b) b.click(); }
 
-  // Product index (for table + modal)
-  function getAllProducts(){
-    return Array.from(document.querySelectorAll('[data-product]'))
-      .map(c => JSON.parse(c.dataset.product));
-  }
-  const productsIndex = {};
-  getAllProducts().forEach(p => { productsIndex[p.id] = p; });
+  // Build product index
+  function getAllProducts(){ return Array.from(document.querySelectorAll('[data-product]')).map(c => JSON.parse(c.dataset.product)); }
+  const productsIndex = {}; getAllProducts().forEach(p => productsIndex[p.id] = p);
 
-  // Modal + Gallery
+  // Modal + gallery
   const modal = document.getElementById('productModal');
   const modalClose = document.getElementById('modalClose');
   const modalTitle = document.getElementById('modalTitle');
@@ -609,9 +609,7 @@
   const prevImg = document.getElementById('prevImg');
   const nextImg = document.getElementById('nextImg');
 
-  let currentProduct = null;
-  let gallery = [];
-  let galleryIndex = 0;
+  let currentProduct = null, gallery = [], galleryIndex = 0;
 
   function showImageAt(i){
     if (!gallery.length) return;
@@ -633,19 +631,11 @@
     const out = [firstSrc];
     const m = firstSrc.match(/^(.*?)(-\d+)?(\.[a-zA-Z0-9]+)$/);
     if (!m) return out;
-    const base = m[1];
-    const ext  = m[3];
+    const base = m[1], ext = m[3];
     for(let n=2; n<=8; n++){
       const candidate = `${base}-${n}${ext}`;
       const img = new Image();
-      img.onload = () => {
-        if (!out.includes(candidate)) {
-          out.push(candidate);
-          gallery = out.slice();
-          buildThumbs();
-        }
-      };
-      img.onerror = () => {};
+      img.onload = () => { if (!out.includes(candidate)) { out.push(candidate); gallery = out.slice(); buildThumbs(); } };
       img.src = candidate;
     }
     return out;
@@ -656,10 +646,7 @@
     modalDesc.textContent = product.desc || '';
     modalPrice.textContent = product.price > 0 ? '£' + product.price.toFixed(2) : '';
     modalBuy.href = 'https://wa.me/447000000000?text=' + encodeURIComponent("Hi Iris93! I'd like to buy: " + product.title + (product.price>0 ? ' (£' + product.price.toFixed(2) + ')' : '') );
-    gallery = discoverGallery(product.img);
-    galleryIndex = 0;
-    modalImg.src = gallery[0];
-    buildThumbs();
+    gallery = discoverGallery(product.img); galleryIndex = 0; modalImg.src = gallery[0]; buildThumbs();
     modal.classList.remove('hidden'); modal.classList.add('flex');
   }
   function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); currentProduct = null; gallery = []; }
@@ -669,11 +656,7 @@
   nextImg.addEventListener('click', () => showImageAt(galleryIndex + 1));
 
   document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('[data-product]');
-      const product = JSON.parse(card.dataset.product);
-      openModal(product);
-    });
+    btn.addEventListener('click', () => openModal(JSON.parse(btn.closest('[data-product]').dataset.product)));
   });
 
   // Cart
@@ -684,66 +667,47 @@
   const cartSubtotal = document.getElementById('cartSubtotal');
   const cartCount = document.getElementById('cartCount');
   const checkoutBtn = document.getElementById('checkoutBtn');
-
   let cart = [];
   function openCart(){ cartDrawer.style.transform = 'translateX(0)'; }
   function closeCart(){ cartDrawer.style.transform = 'translateX(100%)'; }
   cartBtn.addEventListener('click', openCart);
   cartClose.addEventListener('click', closeCart);
-
-  function addToCart(p){
-    const existing = cart.find(i => i.id === p.id);
-    if(existing){ existing.qty += 1; } else { cart.push(Object.assign({ qty:1 }, p)); }
-    renderCart();
-    cartBtn.classList.add('ring-2','ring-amber-400');
-    setTimeout(() => cartBtn.classList.remove('ring-2','ring-amber-400'), 400);
-  }
+  function addToCart(p){ const ex = cart.find(i => i.id === p.id); ex ? ex.qty++ : cart.push({...p, qty:1}); renderCart(); cartBtn.classList.add('ring-2','ring-amber-400'); setTimeout(()=>cartBtn.classList.remove('ring-2','ring-amber-400'), 400); }
   function removeFromCart(id){ cart = cart.filter(i => i.id !== id); renderCart(); }
-  function changeQty(id, delta){
-    const item = cart.find(i => i.id === id);
-    if(!item) return;
-    item.qty += delta;
-    if(item.qty <= 0) removeFromCart(id);
-    renderCart();
-  }
+  function changeQty(id, d){ const it = cart.find(i => i.id === id); if(!it) return; it.qty += d; if(it.qty<=0) removeFromCart(id); renderCart(); }
   function renderCart(){
-    cartItems.innerHTML = '';
-    let subtotal = 0;
+    cartItems.innerHTML = ''; let subtotal = 0;
     cart.forEach(item => {
-      subtotal += (item.price || 0) * item.qty;
-      const row = document.createElement('div');
-      row.className = 'flex gap-3 items-center border rounded-xl p-2';
-      row.innerHTML = ''
-        + '<img src="' + item.img + '" alt="' + item.title + '" class="w-16 h-16 object-cover rounded-lg">'
-        + '<div class="flex-1">'
-        +   '<div class="font-semibold">' + item.title + '</div>'
-        +   '<div class="text-sm text-gray-600">£' + (item.price || 0).toFixed(2) + ' × ' + item.qty + '</div>'
-        +   '<div class="mt-1 flex items-center gap-2">'
-        +     '<button class="px-2 py-1 border rounded-lg qty-dec">−</button>'
-        +     '<button class="px-2 py-1 border rounded-lg qty-inc">+</button>'
-        +     '<button class="px-2 py-1 border rounded-lg text-rose-600 remove">Remove</button>'
-        +   '</div>'
-        + '</div>';
-      row.getElementsByClassName('qty-dec')[0].addEventListener('click', () => changeQty(item.id, -1));
-      row.getElementsByClassName('qty-inc')[0].addEventListener('click', () => changeQty(item.id, +1));
-      row.getElementsByClassName('remove')[0].addEventListener('click', () => removeFromCart(item.id));
+      subtotal += (item.price||0)*item.qty;
+      const row = document.createElement('div'); row.className = 'flex gap-3 items-center border rounded-xl p-2';
+      row.innerHTML = `
+        <img src="${item.img}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg">
+        <div class="flex-1">
+          <div class="font-semibold">${item.title}</div>
+          <div class="text-sm text-gray-600">£${(item.price||0).toFixed(2)} × ${item.qty}</div>
+          <div class="mt-1 flex items-center gap-2">
+            <button class="px-2 py-1 border rounded-lg qty-dec">−</button>
+            <button class="px-2 py-1 border rounded-lg qty-inc">+</button>
+            <button class="px-2 py-1 border rounded-lg text-rose-600 remove">Remove</button>
+          </div>
+        </div>`;
+      row.querySelector('.qty-dec').addEventListener('click', ()=>changeQty(item.id,-1));
+      row.querySelector('.qty-inc').addEventListener('click', ()=>changeQty(item.id,1));
+      row.querySelector('.remove').addEventListener('click', ()=>removeFromCart(item.id));
       cartItems.appendChild(row);
     });
     cartSubtotal.textContent = '£' + subtotal.toFixed(2);
-    cartCount.textContent = cart.reduce((a,b) => a+b.qty, 0);
+    cartCount.textContent = cart.reduce((a,b)=>a+b.qty,0);
   }
   document.getElementById('cardsGrid').addEventListener('click', e => {
-    const add = e.target.closest('.add-btn');
-    if (!add) return;
-    const card = add.closest('[data-product]');
-    addToCart(JSON.parse(card.dataset.product));
+    const add = e.target.closest('.add-btn'); if(!add) return;
+    addToCart(JSON.parse(add.closest('[data-product]').dataset.product));
   });
-
   checkoutBtn.addEventListener('click', () => {
-    if(cart.length === 0){ alert('Your cart is empty.'); return; }
-    const summary = cart.map(i => i.title + ' x' + i.qty + ' (£' + ((i.price||0)*i.qty).toFixed(2) + ')').join('%0A');
-    const total = cart.reduce((a,b) => a+(b.price||0)*b.qty, 0);
-    const msg = 'Hi Iris93!%0A%0AI\'d like to order:%0A' + summary + '%0A%0ATotal: £' + total.toFixed(2) + '.%0AName:%0ADelivery address:%0ANotes:';
+    if(cart.length===0){ alert('Your cart is empty.'); return; }
+    const summary = cart.map(i => `${i.title} x${i.qty} (£${((i.price||0)*i.qty).toFixed(2)})`).join('%0A');
+    const total = cart.reduce((a,b)=>a+(b.price||0)*b.qty,0);
+    const msg = `Hi Iris93!%0A%0AI'd like to order:%0A${summary}%0A%0ATotal: £${total.toFixed(2)}.%0AName:%0ADelivery address:%0ANotes:`;
     window.open('https://wa.me/447000000000?text=' + msg, '_blank', 'noopener');
   });
 
@@ -752,6 +716,9 @@
   const priceFilter = document.getElementById('priceFilter');
   const applyFilters = document.getElementById('applyFilters');
   const clearFilters = document.getElementById('clearFilters');
+  const chipBar = document.getElementById('chipBar');
+  const filterCount = document.getElementById('filterCount');
+  const resetToCollections = document.getElementById('resetToCollections');
 
   function runFilters(){
     const cat = categoryFilter ? categoryFilter.value : '';
@@ -762,16 +729,11 @@
       const byPrice = !maxPrice || ((data.price || 0) <= maxPrice);
       card.classList.toggle('hidden', !(byCat && byPrice));
     });
-    const collectionsBtn = document.querySelector('[data-tab="collections"]');
-    if (collectionsBtn) collectionsBtn.click();
+    const collectionsBtn = document.querySelector('[data-tab="collections"]'); if (collectionsBtn) collectionsBtn.click();
     updateFilterCount();
   }
   if (applyFilters) applyFilters.addEventListener('click', runFilters);
-  if (clearFilters) clearFilters.addEventListener('click', () => { categoryFilter.value = ''; priceFilter.value = ''; runFilters(); });
-
-  const chipBar = document.getElementById('chipBar');
-  const filterCount = document.getElementById('filterCount');
-  const resetToCollections = document.getElementById('resetToCollections');
+  if (clearFilters) clearFilters.addEventListener('click', ()=>{ categoryFilter.value=''; priceFilter.value=''; runFilters(); });
 
   function highlightChip(activeCat){
     document.querySelectorAll('#chipBar .chip').forEach(ch => {
@@ -784,40 +746,22 @@
   function updateFilterCount(){
     const cards = Array.from(document.querySelectorAll('[data-product]'));
     const visible = cards.filter(c => !c.classList.contains('hidden')).length;
-    const total = cards.length;
-    filterCount.textContent = visible === total ? 'Showing all items' : `Showing ${visible} of ${total} items`;
-  }
-  function runFiltersPublic(){
-    if (typeof runFilters === 'function') runFilters();
-    else updateFilterCount();
+    filterCount.textContent = visible === cards.length ? 'Showing all items' : `Showing ${visible} of ${cards.length} items`;
   }
   if (chipBar){
     chipBar.addEventListener('click', (e) => {
-      const btn = e.target.closest('.chip');
-      if (!btn) return;
+      const btn = e.target.closest('.chip'); if(!btn) return;
       const cat = btn.dataset.cat || '';
       if (categoryFilter) categoryFilter.value = cat;
-      highlightChip(cat);
-      runFiltersPublic();
-      const collectionsBtn = document.querySelector('[data-tab="collections"]');
-      if (collectionsBtn) collectionsBtn.click();
+      highlightChip(cat); runFilters();
     });
   }
   if (resetToCollections){
-    resetToCollections.addEventListener('click', () => {
-      if (categoryFilter) categoryFilter.value = '';
-      if (priceFilter) priceFilter.value = '';
-      highlightChip('');
-      document.querySelectorAll('[data-product]').forEach(card => card.classList.remove('hidden'));
-      updateFilterCount();
-      const collectionsBtn = document.querySelector('[data-tab="collections"]');
-      if (collectionsBtn) collectionsBtn.click();
-    });
+    resetToCollections.addEventListener('click', ()=>{ if(categoryFilter) categoryFilter.value=''; if(priceFilter) priceFilter.value=''; highlightChip(''); document.querySelectorAll('[data-product]').forEach(c=>c.classList.remove('hidden')); updateFilterCount(); const b=document.querySelector('[data-tab="collections"]'); if(b) b.click(); });
   }
-  highlightChip('');
-  updateFilterCount();
+  highlightChip(''); updateFilterCount();
 
-  // Table build & interactions
+  // Table meta + build
   const productMeta = {
     "funeral-flowers": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Sympathy", recipient:"Family/Friends", variants:["#a855f7","#ef4444","#f59e0b"], rrp:75, notes:"Soap or natural flowers." },
     "easter-basket": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Easter/Xmas", recipient:"Kids/Adults", variants:["#10b981","#f59e0b","#3b82f6"], rrp:18, notes:"Theme customisable." },
@@ -827,13 +771,13 @@
     "personalised-metal-water-bottles": { personalise:"Yes", lead:"2–3 days", status:"In stock", min:1, occasion:"School/Sports", recipient:"Kids/Adults", variants:["#0ea5e9","#111827","#f59e0b"], rrp:16, notes:"Dishwasher-safe (top rack)." },
     "martis-martisor": { personalise:"Yes", lead:"1 day", status:"In stock", min:2, occasion:"Mărțișor", recipient:"Friends/Colleagues", variants:["#ef4444","#ffffff"], rrp:3, notes:"Traditional charm." },
     "martisor-and": { personalise:"Yes", lead:"1 day", status:"In stock", min:2, occasion:"Mărțișor", recipient:"Kids/Adults", variants:["#ef4444","#f59e0b","#14b8a6"], rrp:2, notes:"Mix & match charms." },
-    "sweet-treats-boxes": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:4, occasion:"Birthdays", recipient:"Kids/Party guests", variants:["#f59e0b","#22c55e","#eab308"], rrp:4, notes:"Contents vary; nut-free on request." },
+    "sweet-treats-boxes": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:4, occasion:"Birthdays", recipient:"Kids/Party guests", variants:["#f59e0b","#22c55e","#eab308"], rrp:4, notes:"Nut-free on request." },
     "soap-roses-boxes": { personalise:"Yes", lead:"2 days", status:"In stock", min:1, occasion:"Anniversary", recipient:"Partner", variants:["#ef4444","#f472b6","#14b8a6"], rrp:14, notes:"Long-lasting soap petals." },
     "soap-flowers-bouquet": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Birthday/Anniversary", recipient:"Her", variants:["#a855f7","#f59e0b","#10b981"], rrp:18, notes:"Custom sizes available." },
     "coffee-mugs-personalised": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#3b82f6","#ef4444"], rrp:10, notes:"Photo/text prints." },
     "plastic-cups-for-birthday-parties-each": { personalise:"Yes", lead:"1 day", status:"In stock", min:6, occasion:"Birthday", recipient:"Kids", variants:["#3b82f6","#f59e0b","#22c55e"], rrp:5, notes:"Reusable party cups." },
     "straw-glass-cups-with-lid": { personalise:"Yes", lead:"1–2 days", status:"In stock", min:1, occasion:"Everyday", recipient:"Teen/Adult", variants:["#111827","#10b981","#f59e0b"], rrp:6, notes:"Glass straw included." },
-    "personalised-t": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#ef4444","#22c55e"], rrp:14, notes:"Sizes for kids & adults." }
+    "personalised-t": { personalise:"Yes", lead:"2–3 days", status:"Made-to-order", min:1, occasion:"Any", recipient:"Anyone", variants:["#111827","#ef4444","#22c55e"], rrp:14, notes:"Kids & adults sizes." }
   };
 
   const tblBody = document.getElementById('tblBody');
@@ -847,10 +791,8 @@
       const rrp = Number(meta.rrp || 0);
       const discount = (rrp && price && rrp > price) ? Math.round((100*(rrp-price))/rrp) + '%' : '—';
       let variantsHTML = '—';
-      if (meta.variants && meta.variants.length){
-        variantsHTML = meta.variants.map(c => '<span class="swatch" title="'+c+'" style="background:'+c+'"></span>').join('');
-      }
-      const catBadge = '<span class="text-xs px-2 py-0.5 rounded-full border">'+ (data.category || 'other') +'</span>';
+      if (meta.variants?.length){ variantsHTML = meta.variants.map(c => `<span class="swatch" title="${c}" style="background:${c}"></span>`).join(''); }
+      const catBadge = `<span class="text-xs px-2 py-0.5 rounded-full border">${data.category || 'other'}</span>`;
 
       const tr = document.createElement('tr');
       tr.dataset.id = data.id;
@@ -864,9 +806,9 @@
         <td class="border px-3 py-2">${meta.lead || '1–3 days'}</td>
         <td class="border px-3 py-2">${meta.status || 'In stock'}</td>
         <td class="border px-3 py-2" data-min="${meta.min || 1}">${meta.min || 1}</td>
-        <td class="border px-3 py-2">${(meta.occasion || 'Any') + ' / ' + (meta.recipient || 'Anyone')}</td>
+        <td class="border px-3 py-2">${(meta.occasion || 'Any')} / ${(meta.recipient || 'Anyone')}</td>
         <td class="border px-3 py-2">${variantsHTML}</td>
-        <td class="border px-3 py-2">${meta.notes || (data.desc || '—')}</td>
+        <td class="border px-3 py-2">${meta.notes || data.desc || '—'}</td>
         <td class="border px-3 py-2"><button class="view-row underline text-indigo-700">View</button></td>
       `;
       tblBody.appendChild(tr);
@@ -874,7 +816,7 @@
     updateSummary();
   }
 
-  // Table interactions: search, sort, export, view
+  // Table interactions
   const tbl = document.getElementById('productsTbl');
   const search = document.getElementById('tblSearch');
   const summary = document.getElementById('tblSummary');
@@ -895,28 +837,20 @@
         }
         return A.localeCompare(B) * dir;
       });
-      dir *= -1;
-      rows.forEach(r => tblBody.appendChild(r));
-      updateSummary();
+      dir *= -1; rows.forEach(r => tblBody.appendChild(r)); updateSummary();
     });
   });
 
   function filterRows() {
     const q = (search.value || '').toLowerCase();
-    tblBody.querySelectorAll('tr').forEach(tr => {
-      const text = tr.textContent.toLowerCase();
-      tr.classList.toggle('hidden', !text.includes(q));
-    });
+    tblBody.querySelectorAll('tr').forEach(tr => tr.classList.toggle('hidden', !tr.textContent.toLowerCase().includes(q)));
     updateSummary();
   }
   if (search) search.addEventListener('input', filterRows);
 
   function updateSummary() {
     const visible = Array.from(tblBody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('hidden'));
-    const prices = visible.map(tr => {
-      const priceCell = tr.querySelector('[data-price]');
-      return priceCell ? parseFloat(priceCell.dataset.price || '0') : 0;
-    });
+    const prices = visible.map(tr => parseFloat(tr.querySelector('[data-price]')?.dataset.price || '0'));
     const count = visible.length;
     const avg = prices.length ? (prices.reduce((a,b)=>a+b,0)/prices.length) : 0;
     summary.textContent = `${count} item${count!==1?'s':''} • Avg £${avg.toFixed(2)}`;
@@ -928,48 +862,53 @@
     const rows = visible.map(tr => Array.from(tr.children).map(td => `"${td.textContent.replace(/"/g,'""').trim()}"`));
     const csv = [head, ...rows].map(r => r.join(',')).join('\n');
     const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'iris93-products.csv';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'iris93-products.csv'; a.click(); URL.revokeObjectURL(a.href);
   }
   if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 
-  // Table -> Modal (robust via index)
+  // Table → Modal (robust via index)
   tblBody.addEventListener('click', (e) => {
-    const btn = e.target.closest('button.view-row');
-    if (!btn) return;
+    const btn = e.target.closest('button.view-row'); if (!btn) return;
     const id = btn.closest('tr').dataset.id;
-    const product = productsIndex[id];
-    if (!product) return alert('Product details not found.');
+    const product = productsIndex[id]; if (!product) return alert('Product details not found.');
     openModal(product);
   });
 
-  // Initial render
   renderTable();
 </script>
 
-<!-- Facebook SDK + fallback detector -->
+<!-- Facebook SDK + chooser -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
   src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
 <script>
+  // Decide which FB method to show: SDK → direct iframe → fallback.
   (function () {
-    function tryFallback() {
-      var wrapper = document.getElementById('fb-wrapper');
-      var fallback = document.getElementById('fb-fallback');
-      if (!wrapper || !fallback) return;
-      var iframe = wrapper.querySelector('iframe');
-      var blocked = !iframe || iframe.clientHeight < 100;
-      if (blocked) {
-        wrapper.classList.add('hidden');
-        fallback.classList.remove('hidden');
-      }
+    function isRendered(el) {
+      if (!el) return false;
+      const ifr = el.querySelector('iframe');
+      return !!(ifr && ifr.clientHeight > 120);
     }
-    window.addEventListener('load', function () {
-      setTimeout(tryFallback, 1800);
-    });
+    function show(el){ el && el.classList.remove('hidden'); }
+    function hide(el){ el && el.classList.add('hidden'); }
+
+    function chooseMode() {
+      var sdkWrap = document.getElementById('fb-sdk-wrap');
+      var iframeWrap = document.getElementById('fb-iframe-wrap');
+      var fallback = document.getElementById('fb-fallback');
+
+      // SDK worked?
+      if (isRendered(sdkWrap)) { show(sdkWrap); hide(iframeWrap); hide(fallback); return; }
+
+      // Try direct iframe
+      show(iframeWrap);
+      setTimeout(function(){
+        if (isRendered(iframeWrap)) { hide(sdkWrap); hide(fallback); }
+        else { hide(sdkWrap); hide(iframeWrap); show(fallback); }
+      }, 1000);
+    }
+
+    window.addEventListener('load', function(){ setTimeout(chooseMode, 1600); });
   })();
 </script>
 
