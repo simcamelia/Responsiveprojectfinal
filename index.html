@@ -73,51 +73,41 @@
 <!-- ===== SOCIAL EMBEDS ===== -->
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
   <div class="grid lg:grid-cols-2 gap-6 items-start">
-    <!-- FACEBOOK: SDK → iframe → fallback -->
+    <!-- FACEBOOK — resilient embed with smart fallback -->
     <div class="bg-white rounded-2xl p-4 shadow-soft border">
-      <h3 class="text-xl font-semibold mb-2">Facebook</h3>
+      <h3 class="text-xl font-semibold mb-3">Facebook</h3>
 
-      <!-- Fallback -->
-      <div id="fb-fallback" class="hidden">
-        <div class="rounded-xl border p-4 bg-gray-50">
-          <p class="text-sm text-gray-700">
-            Your browser is blocking the Facebook embed. View our latest posts directly on Facebook:
-          </p>
-          <a href="https://www.facebook.com/profile.php?id=100077254045255"
-             target="_blank" rel="noopener"
-             class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white"
-             style="background: var(--brand);">
-            <i class="fa-brands fa-facebook"></i> Open on Facebook
-          </a>
-        </div>
-      </div>
-
-      <!-- SDK Page Plugin -->
-      <div id="fb-sdk-wrap">
-        <div class="fb-page"
-             data-href="https://www.facebook.com/profile.php?id=100077254045255"
-             data-tabs="timeline"
-             data-width="500"
-             data-height="650"
-             data-small-header="false"
-             data-adapt-container-width="true"
-             data-hide-cover="false"
-             data-show-facepile="true">
-          <blockquote cite="https://www.facebook.com/profile.php?id=100077254045255" class="fb-xfbml-parse-ignore">
-            <a href="https://www.facebook.com/profile.php?id=100077254045255">Iris93</a>
-          </blockquote>
-        </div>
-      </div>
-
-      <!-- Direct iframe (often works when SDK is blocked) -->
-      <div id="fb-iframe-wrap" class="hidden">
+      <!-- Direct Page Plugin iframe -->
+      <div id="fb-iframe-wrap">
         <iframe
+          id="fb-iframe"
+          loading="lazy"
           title="Facebook Page"
           style="border:none; overflow:hidden; width:100%; height:650px;"
           scrolling="no" frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true">
         </iframe>
+      </div>
+
+      <!-- Friendly, always-visible helper -->
+      <div id="fb-helper" class="mt-3 rounded-xl border p-4 bg-gray-50">
+        <p class="text-sm text-gray-700">
+          If the feed doesn’t appear (some browsers block Facebook embeds), open our page directly:
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.facebook.com/profile.php?id=100077254045255"
+             target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white"
+             style="background: var(--brand);">
+            <i class="fa-brands fa-facebook"></i> Open on Facebook
+          </a>
+          <a href="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100077254045255&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+             target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open the embed in a new tab
+          </a>
+        </div>
       </div>
     </div>
 
@@ -877,38 +867,33 @@
   renderTable();
 </script>
 
-<!-- Facebook SDK + chooser -->
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-  src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
+<!-- Facebook smart fallback scripts -->
 <script>
-  // Decide which FB method to show: SDK → direct iframe → fallback.
   (function () {
-    function isRendered(el) {
-      if (!el) return false;
-      const ifr = el.querySelector('iframe');
-      return !!(ifr && ifr.clientHeight > 120);
+    const wrap = document.getElementById('fb-iframe-wrap');
+    const iframe = document.getElementById('fb-iframe');
+    const helper = document.getElementById('fb-helper');
+
+    let loaded = false;
+    if (iframe) iframe.addEventListener('load', function(){ loaded = true; });
+
+    // Auto-detect blocked embed
+    setTimeout(function(){
+      if (!loaded && wrap && helper) {
+        wrap.style.minHeight = '0px';
+        wrap.style.height = '0px';
+        wrap.style.overflow = 'hidden';
+        helper.classList.remove('hidden');
+      }
+    }, 2500);
+
+    // Auto-show helper for strict browsers (Firefox / Brave)
+    const ua = navigator.userAgent.toLowerCase();
+    const isFirefox = ua.includes('firefox');
+    const isBrave = (navigator.brave && navigator.brave.isBrave) || ua.includes('brave');
+    if (isFirefox || isBrave) {
+      helper && helper.classList.remove('hidden');
     }
-    function show(el){ el && el.classList.remove('hidden'); }
-    function hide(el){ el && el.classList.add('hidden'); }
-
-    function chooseMode() {
-      var sdkWrap = document.getElementById('fb-sdk-wrap');
-      var iframeWrap = document.getElementById('fb-iframe-wrap');
-      var fallback = document.getElementById('fb-fallback');
-
-      // SDK worked?
-      if (isRendered(sdkWrap)) { show(sdkWrap); hide(iframeWrap); hide(fallback); return; }
-
-      // Try direct iframe
-      show(iframeWrap);
-      setTimeout(function(){
-        if (isRendered(iframeWrap)) { hide(sdkWrap); hide(fallback); }
-        else { hide(sdkWrap); hide(iframeWrap); show(fallback); }
-      }, 1000);
-    }
-
-    window.addEventListener('load', function(){ setTimeout(chooseMode, 1600); });
   })();
 </script>
 
